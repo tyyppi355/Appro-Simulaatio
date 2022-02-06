@@ -11,6 +11,8 @@ public class OmaMoottori extends Moottori{
 	
 	private Saapumisprosessi saapumisprosessi;
 	
+	private static double kokonaisaika = 0;
+	
 	
 	public OmaMoottori(){
 			
@@ -48,6 +50,7 @@ public class OmaMoottori extends Moottori{
 			case DEP3: 
 				       a = palvelupisteet[2].otaJonosta();
 					   a.setPoistumisaika(Kello.getInstance().getAika());
+					   kokonaisaika += a.getPoistumisaika();
 			           a.raportti(); 
 		}	
 	}
@@ -57,6 +60,7 @@ public class OmaMoottori extends Moottori{
 	protected void tulokset() {	
 		System.out.println("Simulointi päättyi kello " + Kello.getInstance().getAika());
 		System.out.println("Tulokset ... puuttuvat vielä");
+		System.out.print(kokonaisaika);
 	}
 
 	

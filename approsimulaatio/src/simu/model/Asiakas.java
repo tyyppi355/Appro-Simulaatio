@@ -1,5 +1,6 @@
 package simu.model;
 
+import eduni.distributions.Distributions;
 import simu.framework.Kello;
 import simu.framework.Trace;
 
@@ -7,14 +8,19 @@ import simu.framework.Trace;
 // TODO:
 // Asiakas koodataan simulointimallin edellyttämällä tavalla (data!)
 public class Asiakas {
+	
 	private double saapumisaika;
 	private double poistumisaika;
 	private int id;
 	private static int i = 1;
 	private static long sum = 0;
 	
+	private Distributions Generaattori = new Distributions();
+	private double Odotusindeksi; 
+	
 	public Asiakas(){
 	    id = i++;
+	    Odotusindeksi = Generaattori.uniform(0, 1);
 	    
 		saapumisaika = Kello.getInstance().getAika();
 		Trace.out(Trace.Level.INFO, "Uusi asiakas nro " + id + " saapui klo "+saapumisaika);
@@ -40,6 +46,15 @@ public class Asiakas {
 		return id;
 	}
 	
+	
+	public double getOdotusindeksi() {
+		return Odotusindeksi;
+	}
+
+	public void setOdotusindeksi(double odotusindeksi) {
+		Odotusindeksi = odotusindeksi;
+	}
+
 	public void raportti(){
 		Trace.out(Trace.Level.INFO, "\nAsiakas "+id+ " valmis! ");
 		Trace.out(Trace.Level.INFO, "Asiakas "+id+ " saapui: " +saapumisaika);
