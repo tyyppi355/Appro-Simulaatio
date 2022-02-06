@@ -16,28 +16,33 @@ public class Palvelupiste {
 	
 	private ContinuousGenerator generator;
 	private Tapahtumalista tapahtumalista;
-	private TapahtumanTyyppi skeduloitavanTapahtumanTyyppi; 
+	private TapahtumanTyyppi skeduloitavanTapahtumanTyyppi;
+	private String baarinnimi;
 	
 	//JonoStartegia strategia; //optio: asiakkaiden järjestys
 	
 	private boolean varattu = false;
 
 
-	public Palvelupiste(ContinuousGenerator generator, Tapahtumalista tapahtumalista, TapahtumanTyyppi tyyppi){
+	public Palvelupiste(ContinuousGenerator generator, Tapahtumalista tapahtumalista, TapahtumanTyyppi tyyppi,String n){
 		this.tapahtumalista = tapahtumalista;
 		this.generator = generator;
 		this.skeduloitavanTapahtumanTyyppi = tyyppi;
+		baarinnimi = n;
 				
 	}
 
 
 	public void lisaaJonoon(Asiakas a){   // Jonon 1. asiakas aina palvelussa
 		jono.add(a);
+		a.setSaapumisaika(Kello.getInstance().getAika());
 		
 	}
 
 	public Asiakas otaJonosta(){  // Poistetaan palvelussa ollut
 		varattu = false;
+		jono.getFirst().setPoistumisaika(Kello.getInstance().getAika());
+		jono.getFirst().setJonoaikalista(baarinnimi);
 		return jono.poll();
 	}
 
@@ -59,5 +64,16 @@ public class Palvelupiste {
 	public boolean onJonossa(){
 		return jono.size() != 0;
 	}
+
+
+	public String getBaarinnimi() {
+		return baarinnimi;
+	}
+
+
+	public void setBaarinnimi(String baarinnimi) {
+		this.baarinnimi = baarinnimi;
+	}
+	
 
 }

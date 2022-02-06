@@ -1,5 +1,7 @@
 package simu.model;
 
+import java.util.ArrayList;
+
 import eduni.distributions.Distributions;
 import simu.framework.Kello;
 import simu.framework.Trace;
@@ -16,7 +18,8 @@ public class Asiakas {
 	private static long sum = 0;
 	
 	private Distributions Generaattori = new Distributions();
-	private double Odotusindeksi; 
+	private double Odotusindeksi;
+	private ArrayList<Jonoajat> jonoaikalista = new ArrayList<Jonoajat>();
 	
 	public Asiakas(){
 	    id = i++;
@@ -54,12 +57,27 @@ public class Asiakas {
 	public void setOdotusindeksi(double odotusindeksi) {
 		Odotusindeksi = odotusindeksi;
 	}
+	
+
+	public ArrayList<Jonoajat> getJonoaikalista() {
+		return jonoaikalista;
+	}
+
+	public void setJonoaikalista(String nimi) {
+		Jonoajat b = new Jonoajat(nimi,poistumisaika - saapumisaika);
+		jonoaikalista.add(b);
+	}
+	public String getBaarit(){
+		String a = "";
+		for(int i = 1;i < jonoaikalista.size();i++) {
+			a += jonoaikalista.get(i).getBaari() + " " + jonoaikalista.get(i).getJonotusaika() + " " + "\n";
+		}
+		return a;
+	}
 
 	public void raportti(){
 		Trace.out(Trace.Level.INFO, "\nAsiakas "+id+ " valmis! ");
-		Trace.out(Trace.Level.INFO, "Asiakas "+id+ " saapui: " +saapumisaika);
-		Trace.out(Trace.Level.INFO,"Asiakas "+id+ " poistui: " +poistumisaika);
-		Trace.out(Trace.Level.INFO,"Asiakas "+id+ " viipyi: " +(poistumisaika-saapumisaika));
+		System.out.println(getBaarit());
 		sum += (poistumisaika-saapumisaika);
 		double keskiarvo = sum/id;
 		System.out.println("Asiakkaiden läpimenoaikojen keskiarvo tähän asti "+ keskiarvo);
