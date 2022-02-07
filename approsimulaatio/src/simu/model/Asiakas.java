@@ -20,6 +20,7 @@ public class Asiakas {
 	private Distributions Generaattori = new Distributions();
 	private double Odotusindeksi;
 	private ArrayList<Jonoajat> jonoaikalista = new ArrayList<Jonoajat>();
+	private int suorituspassi = 0;
 	
 	public Asiakas(){
 	    id = i++;
@@ -82,5 +83,15 @@ public class Asiakas {
 		double keskiarvo = sum/id;
 		System.out.println("Asiakkaiden läpimenoaikojen keskiarvo tähän asti "+ keskiarvo);
 	}
+
+	public int getSuorituspassi() {
+		return suorituspassi;
+	}
+
+	public void setSuorituspassi() {
+		suorituspassi++;
+	}
+	
+	
 
 }
