@@ -78,8 +78,10 @@ public class Asiakas {
 
 	public void raportti(){
 		Trace.out(Trace.Level.INFO, "\nAsiakas "+id+ " valmis! ");
-		System.out.println(getBaarit());
+		Trace.out(Trace.Level.INFO, "\nJonotus aika baareissa:\n" + getBaarit());
+		
 		sum += (poistumisaika-saapumisaika);
+		
 		double keskiarvo = sum/id;
 		System.out.println("Asiakkaiden läpimenoaikojen keskiarvo tähän asti "+ keskiarvo);
 	}
