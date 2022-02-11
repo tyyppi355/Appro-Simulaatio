@@ -15,7 +15,7 @@ public class Tapahtumalista {
 	}
 	
 	public void lisaa(Tapahtuma t){
-		Trace.out(Trace.Level.INFO,"Tapahtumalistaan lis√§t√§√§n uusi " + t.getTyyppi() + " " + t.getAika());
+		Trace.out(Trace.Level.INFO,"Tapahtumalistaan lis‰t‰‰n uusi " + t.getTyyppi() + " " + t.getAika());
 		lista.add(t);
 	}
 	

@@ -19,6 +19,7 @@ public class Palvelupiste {
 	private Tapahtumalista tapahtumalista;
 	private TapahtumanTyyppi skeduloitavanTapahtumanTyyppi;
 	private String baarinnimi;
+	private int montaKertaaKayty = 0;
 	
 	//JonoStartegia strategia; //optio: asiakkaiden jÃ¤rjestys
 	
@@ -34,15 +35,22 @@ public class Palvelupiste {
 
 
 	public void lisaaJonoon(Asiakas a){   // Jonon 1. asiakas aina palvelussa
-		jono.add(a);
-		a.setSaapumisaika(Kello.getInstance().getAika());
+		
+		System.out.println("*************");
+		System.out.println();
 		System.out.println(baarinnimi + " jono: " + jono.size());
 		System.out.println(baarinnimi + ": " + sisalla.size());
+		System.out.println();
+		
+		jono.add(a);
+		a.setSaapumisaika(Kello.getInstance().getAika());
+		
 		
 	}
 
 	public Asiakas otaJonosta(){
 		return jono.poll();
+		
 	}
 
 	public void aloitaPalvelu(){  //Aloitetaan uusi palvelu, asiakas on jonossa palvelun aikana
@@ -52,8 +60,10 @@ public class Palvelupiste {
 		Asiakas a = jono.poll();
 		sisalla.add(a);
 		
-		Trace.out(Trace.Level.INFO, "Aloitetaan uusi palvelu asiakkaalle " + sisalla.peek().getId());
+		Trace.out(Trace.Level.INFO, "Aloitetaan uusi palvelu asiakkaalle " + a.getId());
 		
+		montaKertaaKayty++;
+
 		a.setSuorituspassi();
 		double palveluaika = generator.sample();
 		if(a.getSuorituspassi() == 3) {
@@ -64,14 +74,26 @@ public class Palvelupiste {
 		
 	}
 	
+	public int getMontaSisalla() {
+		return this.sisalla.size();
+	}
+	public int getMontaJonossa() {
+		return this.jono.size();
+	}
+	
 	public Asiakas otaSisältä(){  // Poistetaan palvelussa ollut
 		return sisalla.poll();
 	}
 
 
+	public int getMontaKertaaKayty() {
+		return montaKertaaKayty;
+	}
+
+
 	public boolean onVarattu(){
 		
-		if(sisalla.size() >= 100) {
+		if(sisalla.size() == 10) {
 			return true;
 		} else {
 			return false;
@@ -92,6 +114,8 @@ public class Palvelupiste {
 	public void setBaarinnimi(String baarinnimi) {
 		this.baarinnimi = baarinnimi;
 	}
+
+
 	
 
 }

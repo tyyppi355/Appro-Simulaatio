@@ -1,5 +1,6 @@
 package simu.framework;
 
+import simu.model.OmaMoottori;
 import simu.model.Palvelupiste;
 
 public abstract class Moottori {
@@ -66,10 +67,15 @@ public abstract class Moottori {
 	}
 	
 	private boolean simuloidaan(){
-		return kello.getAika() < simulointiaika;
+		
+		return getPoistuneet() != getMontaOpiskelijaa();
 	}
 	
 			
+
+	protected abstract int getMontaOpiskelijaa();
+
+	protected abstract int getPoistuneet();
 
 	protected abstract void alustukset(); // Määritellään simu.model-pakkauksessa Moottorin aliluokassa
 	

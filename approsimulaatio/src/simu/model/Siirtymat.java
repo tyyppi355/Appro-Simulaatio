@@ -63,8 +63,12 @@ public class Siirtymat {
 			   break;
 		   
 		   }
+		   
 		
 	}
+	public void poistuminen(Palvelupiste p) {
+		   p.otaSisältä();
+	   }
 	
 	
 	

@@ -1,7 +1,6 @@
 package testi;
 import simu.framework.*;
 import simu.framework.Trace.Level;
-import simu.model.Asiakas;
 import simu.model.OmaMoottori;
 
 public class Simulaattori { //Tekstipohjainen
@@ -10,7 +9,8 @@ public class Simulaattori { //Tekstipohjainen
 		
 		Trace.setTraceLevel(Level.INFO);
 		Moottori m = new OmaMoottori();
-		m.setSimulointiaika(1000);
+		m.setSimulointiaika(9999);
+		
 		m.aja();
 		
 	}
