@@ -1,5 +1,6 @@
 package simu.model;
 
+import controller.IKontrolleriMtoV;
 import eduni.distributions.Negexp;
 import eduni.distributions.Normal;
 import simu.framework.Kello;
@@ -28,7 +29,9 @@ public class OmaMoottori extends Moottori{
 	}
 
 
-	public OmaMoottori(){
+	public OmaMoottori(IKontrolleriMtoV kontrolleri){
+		
+		super(kontrolleri);
 			
 		palvelupisteet = new Palvelupiste[3];
 	
@@ -94,6 +97,8 @@ public class OmaMoottori extends Moottori{
 			System.out.println("Jono: "+ p.getMontaJonossa() + " Sisällä: " + p.getMontaSisalla());
 
 		}
+		
+		kontrolleri.naytaLoppuaika(Kello.getInstance().getAika());
 		
 	}
 

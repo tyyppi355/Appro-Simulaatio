@@ -1,20 +1,25 @@
 package simu.framework;
 
-import simu.model.OmaMoottori;
+import controller.IKontrolleriMtoV;
 import simu.model.Palvelupiste;
 
-public abstract class Moottori {
+public abstract class Moottori extends Thread implements IMoottori{
 	
 	private double simulointiaika = 0;
+	private long viive = 0;
 	
 	private Kello kello;
 	
 	protected Tapahtumalista tapahtumalista;
 	protected Palvelupiste[] palvelupisteet;
 	
+	protected IKontrolleriMtoV kontrolleri;
+	
+	public Moottori(IKontrolleriMtoV kontrolleri){
 
-	public Moottori(){
-
+		
+		this.kontrolleri = kontrolleri;
+		
 		kello = Kello.getInstance(); // Otetaan kello muuttujaan yksinkertaistamaan koodia
 		
 		tapahtumalista = new Tapahtumalista();
@@ -28,20 +33,21 @@ public abstract class Moottori {
 		simulointiaika = aika;
 	}
 	
+	public void setViive(long viive) {
+		this.viive = viive;
+	}
 	
-	public void aja(){
-		alustukset(); // luodaan mm. ensimm√§inen tapahtuma
+	public long getViive() {
+		return viive;
+	}
+	
+	public void run(){ // Entinen aja()
+		alustukset(); // luodaan mm. ensimm‰inen tapahtuma
 		while (simuloidaan()){
-			
-			Trace.out(Trace.Level.INFO, "\nA-vaihe: kello on " + nykyaika());
+			viive(); // UUSI
 			kello.setAika(nykyaika());
-			
-			Trace.out(Trace.Level.INFO, "\nB-vaihe:" );
 			suoritaBTapahtumat();
-			
-			Trace.out(Trace.Level.INFO, "\nC-vaihe:" );
 			yritaCTapahtumat();
-
 		}
 		tulokset();
 		
@@ -71,6 +77,14 @@ public abstract class Moottori {
 		return getPoistuneet() != getMontaOpiskelijaa();
 	}
 	
+	private void viive() { // UUSI
+		Trace.out(Trace.Level.INFO, "Viive " + viive);
+		try {
+			sleep(viive);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 			
 
 	protected abstract int getMontaOpiskelijaa();
