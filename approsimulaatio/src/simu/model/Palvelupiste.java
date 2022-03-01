@@ -66,11 +66,11 @@ public class Palvelupiste {
 
 		a.setSuorituspassi();
 		double palveluaika = generator.sample();
-		if(a.getSuorituspassi() == 3) {
+		/*if(a.getSuorituspassi() == 3) {
 			tapahtumalista.lisaa(new Tapahtuma(TapahtumanTyyppi.OUT,Kello.getInstance().getAika()+palveluaika));
-		}else {
+		}else {*/
 			tapahtumalista.lisaa(new Tapahtuma(skeduloitavanTapahtumanTyyppi,Kello.getInstance().getAika()+palveluaika));
-		}
+		//}
 		
 	}
 	

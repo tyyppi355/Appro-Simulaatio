@@ -16,7 +16,7 @@ public class OmaMoottori extends Moottori{
 	private int poistuneet = 1;
 	private int luodut  = 0;
 	
-	private int montaOpiskelijaa = 5;
+	private int montaOpiskelijaa = 100;// uusi otto
 	
 	
 	public int getPoistuneet() {
@@ -33,12 +33,13 @@ public class OmaMoottori extends Moottori{
 		
 		super(kontrolleri);
 			
-		palvelupisteet = new Palvelupiste[3];
+		palvelupisteet = new Palvelupiste[4];
 	
-		palvelupisteet[0]=new Palvelupiste(new Normal(10,10), tapahtumalista, TapahtumanTyyppi.DONDO,"Dondo");	
-		palvelupisteet[1]=new Palvelupiste(new Normal(10,10), tapahtumalista, TapahtumanTyyppi.APOLLO,"Apollo");
-		palvelupisteet[2]=new Palvelupiste(new Normal(10,10), tapahtumalista, TapahtumanTyyppi.KANNUNKULMA,"Kannunkulma");
-		
+		palvelupisteet[0]=new Palvelupiste(new Normal(60,60), tapahtumalista, TapahtumanTyyppi.DONDO,"Dondo");	
+		palvelupisteet[1]=new Palvelupiste(new Normal(20,10), tapahtumalista, TapahtumanTyyppi.APOLLO,"Apollo");
+		palvelupisteet[2]=new Palvelupiste(new Normal(50,35), tapahtumalista, TapahtumanTyyppi.KANNUNKULMA,"Kannunkulma");
+		palvelupisteet[3]=new Palvelupiste(new Normal(2,2), tapahtumalista, TapahtumanTyyppi.OUT,"***JATKOPAIKKA***"); // jatkopaikan "palvelupiste"
+
 		saapumisprosessi = new Saapumisprosessi(new Negexp(2,5), tapahtumalista, TapahtumanTyyppi.ARR1);
 
 	}
@@ -46,21 +47,20 @@ public class OmaMoottori extends Moottori{
 	
 	@Override
 	protected void alustukset() {
-		saapumisprosessi.generoiSeuraava(); // Ensimmäinen saapuminen järjestelmään
-		//saapumisprosessi.generoiMonta(montaOpiskelijaa); 
+		//saapumisprosessi.generoiSeuraava(); // Ensimmäinen saapuminen järjestelmään
+		saapumisprosessi.generoiMonta(montaOpiskelijaa); 
 	}
 	
 	@Override
 	protected void suoritaTapahtuma(Tapahtuma t){  // B-vaiheen tapahtumat
 
-		Asiakas a;
 		Siirtymat h = new Siirtymat();
 		switch (t.getTyyppi()){
 			
 			case ARR1: 
 				h.aloitusPaikka(palvelupisteet);
 				luodut++;
-				saapumisprosessi.generoiSeuraava(); // Ei tarvita jos kaikki opiskelijat generoidaan alustuksessa
+				//saapumisprosessi.generoiSeuraava(); // Ei tarvita jos kaikki opiskelijat generoidaan alustuksessa
 				break;
 			case DONDO:
 				h.dondo(palvelupisteet);
@@ -72,10 +72,12 @@ public class OmaMoottori extends Moottori{
 				h.kannunkulma(palvelupisteet);
 				break;
 			case OUT:
+				h.ulos(palvelupisteet);
 				
 				poistuneet++;
 				System.out.println("Nyt on asiakas poistunut systeemist�! " + poistuneet);
 				System.out.println();
+				
 				for(Palvelupiste p : palvelupisteet) {
 					System.out.println(p.getBaarinnimi() + "ssa on k�yty "+ p.getMontaKertaaKayty());
 

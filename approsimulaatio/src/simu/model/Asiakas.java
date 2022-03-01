@@ -68,12 +68,17 @@ public class Asiakas {
 		Jonoajat b = new Jonoajat(nimi,poistumisaika - saapumisaika);
 		jonoaikalista.add(b);
 	}
+	
 	public String getBaarit(){
 		String a = "";
 		for(int i = 1;i < jonoaikalista.size();i++) {
 			a += jonoaikalista.get(i).getBaari() + " " + jonoaikalista.get(i).getJonotusaika() + " " + "\n";
 		}
 		return a;
+	}
+	
+	public String getViimeinenBaari() {
+		return jonoaikalista.get(jonoaikalista.size()).getBaari();
 	}
 
 	public void raportti(){

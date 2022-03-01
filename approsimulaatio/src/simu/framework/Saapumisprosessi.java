@@ -26,7 +26,7 @@ public class Saapumisprosessi {
 
 	public void generoiMonta(int monta) {
 		for (int i = 1; i <= monta; i++) {
-			Tapahtuma t = new Tapahtuma(tyyppi, Kello.getInstance().getAika() + generaattori.sample());
+			Tapahtuma t = new Tapahtuma(tyyppi, i*0.0000000001);
 			tapahtumalista.lisaa(t);
 		}
 	}

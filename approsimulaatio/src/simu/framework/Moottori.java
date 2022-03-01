@@ -73,8 +73,8 @@ public abstract class Moottori extends Thread implements IMoottori{
 	}
 	
 	private boolean simuloidaan(){
-		
-		return getPoistuneet() != getMontaOpiskelijaa();
+		//return Kello.getInstance().getAika() < simulointiaika;
+		 return getPoistuneet() < getMontaOpiskelijaa();
 	}
 	
 	private void viive() { // UUSI
