@@ -4,9 +4,7 @@ package simu.model;
 // Tapahtumien tyypit määritellään simulointimallin vaatimusten perusteella
 public enum TapahtumanTyyppi {
 	ARR1,
-	DONDO,
-	APOLLO,
-	KANNUNKULMA,
+	Palvelupiste,
 	OUT
 
 }

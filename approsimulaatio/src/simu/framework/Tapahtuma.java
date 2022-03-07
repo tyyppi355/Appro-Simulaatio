@@ -7,10 +7,24 @@ public class Tapahtuma implements Comparable<Tapahtuma> {
 		
 	private TapahtumanTyyppi tyyppi;
 	private double aika;
+	private String nimi;
 	
+	public String getNimi() {
+		return nimi;
+	}
+
+	public void setNimi(String nimi) {
+		this.nimi = nimi;
+	}
+
 	public Tapahtuma(TapahtumanTyyppi tyyppi, double aika){
 		this.tyyppi = tyyppi;
 		this.aika = aika;
+	}
+	public Tapahtuma(TapahtumanTyyppi tyyppi, double aika, String nimi) {
+		this.tyyppi = tyyppi;
+		this.aika = aika;
+		this.nimi = nimi;
 	}
 	
 	public void setTyyppi(TapahtumanTyyppi tyyppi) {

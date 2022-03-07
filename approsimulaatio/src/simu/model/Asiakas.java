@@ -1,7 +1,9 @@
 package simu.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import eduni.distributions.ContinuousGenerator;
 import eduni.distributions.Distributions;
 import simu.framework.Kello;
 import simu.framework.Trace;
@@ -15,27 +17,54 @@ public class Asiakas {
 	private double poistumisaika;
 	private int id;
 	private static int i = 1;
-	private static long sum = 0;
+	private long sum = 0;
+	private double tyytyvaisyysIndeksi = 1000;
+	private int jonoIndeksi;
+
 	
-	private Distributions Generaattori = new Distributions();
-	private double Odotusindeksi;
-	private ArrayList<Jonoajat> jonoaikalista = new ArrayList<Jonoajat>();
+	private ContinuousGenerator Generaattori;
+	private int odotusindeksi;
+	private HashMap<String,Double> jonoaikalista = new HashMap<String,Double>();
+	
 	private int suorituspassi = 0;
 	
-	public Asiakas(){
+
+	
+	public Asiakas(ContinuousGenerator generator){
 	    id = i++;
-	    Odotusindeksi = Generaattori.uniform(0, 1);
-	    
+	    odotusindeksi = (int) Math.round(generator.sample());
 		saapumisaika = Kello.getInstance().getAika();
 		Trace.out(Trace.Level.INFO, "Uusi asiakas nro " + id + " saapui klo "+saapumisaika);
 	}
 
+	public int getOdotusindeksi(){
+		return odotusindeksi;
+	}
+	
+	public double getTyytyvaisyysIndeksi() {
+		return this.tyytyvaisyysIndeksi;
+	}
+	
+	public void laskeTyytyvaisyytta(double aika) {
+		aika = Math.round(aika);
+		this.tyytyvaisyysIndeksi -= aika;
+	}
+	
+	public void nostaTyytyvaisyytta() {
+		this.tyytyvaisyysIndeksi += 50;
+	}
+	
 	public double getPoistumisaika() {
 		return poistumisaika;
+	}
+	
+	public int getJonoIndeksi() {
+		return jonoIndeksi;
 	}
 
 	public void setPoistumisaika(double poistumisaika) {
 		this.poistumisaika = poistumisaika;
+		
 	}
 
 	public double getSaapumisaika() {
@@ -49,41 +78,43 @@ public class Asiakas {
 	public int getId() {
 		return id;
 	}
-	
-	
-	public double getOdotusindeksi() {
-		return Odotusindeksi;
-	}
 
-	public void setOdotusindeksi(double odotusindeksi) {
-		Odotusindeksi = odotusindeksi;
-	}
-	
-
-	public ArrayList<Jonoajat> getJonoaikalista() {
+	public HashMap<String,Double> getJonoaikalista() {
 		return jonoaikalista;
+	}
+	
+	public double getKeskimaarainenJonotusaika() {
+		double tulos = 0;
+		for(var entry : jonoaikalista.entrySet()) {
+			tulos += entry.getValue();
+		}
+		return tulos;
+	}
+	
+	// Tarkista onko asiakas k‰ynyt annetussa baarissa. K‰ytet‰‰n siirtym‰ luokassa.
+	public boolean onkoBaarissaKayty(String baari) {
+		for(var entry : jonoaikalista.entrySet()) {
+			if(entry.getKey().equals(baari)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void setJonoaikalista(String nimi) {
-		Jonoajat b = new Jonoajat(nimi,poistumisaika - saapumisaika);
-		jonoaikalista.add(b);
+		Double jonotusaika = poistumisaika - saapumisaika;
+		laskeTyytyvaisyytta(jonotusaika);
+		
+		
+		jonoaikalista.put(nimi,jonotusaika);
 	}
 	
-	public String getBaarit(){
-		String a = "";
-		for(int i = 1;i < jonoaikalista.size();i++) {
-			a += jonoaikalista.get(i).getBaari() + " " + jonoaikalista.get(i).getJonotusaika() + " " + "\n";
-		}
-		return a;
-	}
 	
-	public String getViimeinenBaari() {
-		return jonoaikalista.get(jonoaikalista.size()).getBaari();
-	}
+	
+	
 
 	public void raportti(){
 		Trace.out(Trace.Level.INFO, "\nAsiakas "+id+ " valmis! ");
-		Trace.out(Trace.Level.INFO, "\nJonotus aika baareissa:\n" + getBaarit());
 		
 		sum += (poistumisaika-saapumisaika);
 		

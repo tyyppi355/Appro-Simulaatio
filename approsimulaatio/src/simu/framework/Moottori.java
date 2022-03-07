@@ -5,7 +5,6 @@ import simu.model.Palvelupiste;
 
 public abstract class Moottori extends Thread implements IMoottori{
 	
-	private double simulointiaika = 0;
 	private long viive = 0;
 	
 	private Kello kello;
@@ -27,10 +26,6 @@ public abstract class Moottori extends Thread implements IMoottori{
 		// Palvelupisteet luodaan simu.model-pakkauksessa Moottorin aliluokassa 
 		
 		
-	}
-
-	public void setSimulointiaika(double aika) {
-		simulointiaika = aika;
 	}
 	
 	public void setViive(long viive) {
