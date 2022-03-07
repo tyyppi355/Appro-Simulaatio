@@ -27,12 +27,12 @@ private SessionFactory istuntotehdas;
 	}
 
 
-	public void createBaari(Baari b) {
+	public void createPalvelupiste(Palvelupiste p) {
 		// TODO Auto-generated method stub
 		Transaction transaktio = null;
 		try (Session istunto = istuntotehdas.openSession()){
 			transaktio = istunto.beginTransaction();
-			istunto.saveOrUpdate(b);
+			istunto.saveOrUpdate(p);
 			transaktio.commit();
 		} catch (Exception e) {
 			System.out.println(e);
@@ -67,11 +67,11 @@ private SessionFactory istuntotehdas;
 		return val;
 	}
 
-	public List<Baari> readValuutat() {
+	public List<Palvelupiste> readValuutat() {
 		// TODO Auto-generated method stub
 		Session istunto = istuntotehdas.openSession();
 		istunto.beginTransaction();
-		List result = istunto.createQuery( "from Baari" ).list();
+		List result = istunto.createQuery( "from Palvelupistelista" ).list();
 		istunto.getTransaction().commit();
 		istunto.close();
 		return result;

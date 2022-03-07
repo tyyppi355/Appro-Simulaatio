@@ -1,7 +1,22 @@
 package simu.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.PriorityQueue;
+
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import eduni.distributions.ContinuousGenerator;
 import simu.framework.Kello;
@@ -11,15 +26,28 @@ import simu.framework.Trace;
 
 // TODO:
 // Palvelupistekohtaiset toiminnallisuudet, laskutoimitukset (+ tarvittavat muuttujat) ja raportointi koodattava
+@Entity
+@Table(name="Palvelupiste")
 public class Palvelupiste {
-
+	@Transient
 	private LinkedList<Asiakas> jono = new LinkedList<Asiakas>(); // Tietorakennetoteutus
+	@Transient
 	private LinkedList<Asiakas> sisalla = new LinkedList<Asiakas>();
+	@Transient
 	private ContinuousGenerator generator;
+	@Transient
 	private Tapahtumalista tapahtumalista;
+	@Transient
 	private TapahtumanTyyppi skeduloitavanTapahtumanTyyppi;
+	@Id
+	@Column(name ="nimi")
 	private String baarinnimi;
+	@Transient
 	private int montaKertaaKayty = 0;
+	@Column(name ="lat")
+	private double lat;
+	@Column(name ="lon")
+	private double lon;
 
 	// JonoStartegia strategia; //optio: asiakkaiden järjestys
 
@@ -30,6 +58,12 @@ public class Palvelupiste {
 		this.skeduloitavanTapahtumanTyyppi = tyyppi;
 		baarinnimi = n;
 
+	}
+	public Palvelupiste(String nimi,double lat,double lon) {
+		super();
+		this.baarinnimi = nimi;
+		this.lat = lat;
+		this.lon = lon;
 	}
 
 	public void lisaaJonoon(Asiakas a) { // Jonon 1. asiakas aina palvelussa
@@ -111,5 +145,19 @@ public class Palvelupiste {
 	public void setBaarinnimi(String baarinnimi) {
 		this.baarinnimi = baarinnimi;
 	}
+	
+	public double getLat() {
+		return lat;
+	}
+	public void setLat(double lat) {
+		this.lat = lat;
+	}
+	public double getLon() {
+		return lon;
+	}
+	public void setLon(double lon) {
+		this.lon = lon;
+	}
+	
 
 }

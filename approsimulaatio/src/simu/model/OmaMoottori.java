@@ -48,7 +48,6 @@ public class OmaMoottori extends Moottori {
 				"Cortisooni baari");
 		palvelupisteet[6] = new Palvelupiste(new Normal(100, 50), tapahtumalista, TapahtumanTyyppi.Palvelupiste,
 				"Kaivo huone");
-
 		palvelupisteet[0] = new Palvelupiste(new Normal(1, 1), tapahtumalista, TapahtumanTyyppi.OUT,
 				"***JATKOPAIKKA***"); // jatkopaikan "palvelupiste"
 
