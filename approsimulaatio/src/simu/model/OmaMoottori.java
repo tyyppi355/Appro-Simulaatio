@@ -1,5 +1,7 @@
 package simu.model;
 
+import java.util.List;
+
 import controller.IKontrolleriMtoV;
 import eduni.distributions.Negexp;
 import eduni.distributions.Normal;
@@ -16,10 +18,10 @@ public class OmaMoottori extends Moottori {
 	private int luodut = 0;
 
 	private int montaOpiskelijaa = 500;
-	private int palvelupisteidenMaara = 3;
+	private int palvelupisteidenMaara;
 	
 	private double avgtyytyvaisyys = 0;
-	private int tyytyvaisyysCount = 0;
+	private int suoritukset = 3;
 
 	public int getPoistuneet() {
 		return poistuneet;
@@ -37,33 +39,24 @@ public class OmaMoottori extends Moottori {
 
 		super(kontrolleri);
 
-		palvelupisteet = new Palvelupiste[palvelupisteidenMaara + 1];/*
-for(int i = 1; i<palvelupisteidenMaara;i++) {
-	palvelupisteet[i] = new Palvelupiste(new Normal(100, 50), tapahtumalista, TapahtumanTyyppi.Palvelupiste,"Dondo"+i);
-}*/
 		
-		palvelupisteet[1] = new Palvelupiste(new Normal(100, 50), tapahtumalista, TapahtumanTyyppi.Palvelupiste,
-				"Apollo",50);
-		palvelupisteet[2] = new Palvelupiste(new Normal(100, 50), tapahtumalista, TapahtumanTyyppi.Palvelupiste,
-				"Kannunkulma",50);
-		palvelupisteet[3] = new Palvelupiste(new Normal(100, 50), tapahtumalista, TapahtumanTyyppi.Palvelupiste,
-				"Karhunkansi",50);
-		/*	
-		palvelupisteet[4] = new Palvelupiste(new Normal(100, 50), tapahtumalista, TapahtumanTyyppi.Palvelupiste,
-				"Cortisooni baari",50);
-		palvelupisteet[5] = new Palvelupiste(new Normal(100, 50), tapahtumalista, TapahtumanTyyppi.Palvelupiste,
-<<<<<<< Updated upstream
-				"Cortisooni baari");
-		palvelupisteet[6] = new Palvelupiste(new Normal(100, 50), tapahtumalista, TapahtumanTyyppi.Palvelupiste,
-				"Kaivo huone");
-=======
-				"Kaivo huone",100);*/
+		Tietokanta tietokanta = new Tietokanta();
 		
-
->>>>>>> Stashed changes
+		List<Palvelupiste> lista = tietokanta.readValuutat();
+		palvelupisteidenMaara = 4;
+		
+		palvelupisteet = new Palvelupiste[palvelupisteidenMaara+1];
+		
 		palvelupisteet[0] = new Palvelupiste(new Normal(1, 1), tapahtumalista, TapahtumanTyyppi.OUT,
-				"***JATKOPAIKKA***",montaOpiskelijaa); // jatkopaikan "palvelupiste"
-
+				"***JATKOPAIKKA***",5000,60.169494575285455, 24.9339736292758); // jatkopaikan "palvelupiste"
+		
+		for(int i = 1; i <= lista.size();i++) {
+			
+			palvelupisteet[i] = new Palvelupiste(new Normal(100, 50), tapahtumalista,
+					TapahtumanTyyppi.Palvelupiste,lista.get(i-1).getBaarinnimi(),50,lista.get(i-1).getLat(),lista.get(i-1).getLon());
+			
+		}
+		
 		saapumisprosessi = new Saapumisprosessi(new Negexp(2, 5), tapahtumalista, TapahtumanTyyppi.ARR1);
 
 	}
@@ -84,20 +77,20 @@ for(int i = 1; i<palvelupisteidenMaara;i++) {
 	@Override
 	protected void suoritaTapahtuma(Tapahtuma t) { // B-vaiheen tapahtumat
 
-		Siirtymat h = new Siirtymat();
+
 		switch (t.getTyyppi()) {
 
 		case ARR1:
-			h.aloitusPaikka(palvelupisteet);
+			aloitusPaikka(palvelupisteet);
 			luodut++;
 			// saapumisprosessi.generoiSeuraava(); // Ei tarvita jos kaikki opiskelijat
 			// generoidaan alustuksessa
 			break;
 		case Palvelupiste:
-			h.siirtyminen(palvelupisteet, t.getNimi());
+			siirtyminen(palvelupisteet, t.getNimi());
 			break;
 		case OUT:
-			h.ulos(palvelupisteet);
+			ulos(palvelupisteet);
 			poistuneet++;
 			break;
 
@@ -132,6 +125,79 @@ for(int i = 1; i<palvelupisteidenMaara;i++) {
 	public void setSimulointiaika(double aika) {
 		// TODO Auto-generated method stub
 
+	}
+	public void aloitusPaikka(Palvelupiste p[]) {
+
+		int montaOpiskelijaa = getMontaOpiskelijaa();
+		int montaBaaria = getPalvelupisteidenMaara();
+		// TƒRKEƒ!!!!!!!!!!!!!!
+		// normaali generaattorissa MEAN on opiskelijoiden m‰‰r‰ jaettuna BAARIEN
+		// m‰‰r‰ll‰.
+		// VARIANCE on opiskelijoiden m‰‰r‰ jaettuna kaksinkertainen baarienm‰‰r‰
+		//
+		Asiakas a = new Asiakas(new Normal(100, 5));
+
+		int kierretty = 0;
+
+		int range = 0;
+
+		do {
+			range = (int) Math.ceil(Math.random() * montaBaaria);
+
+			if (a.getTyytyvaisyysIndeksi() >= p[range].getMontaJonossa() || kierretty == montaBaaria) {
+				p[range].lisaaJonoon(a);
+				break;
+			}
+
+			kierretty++;
+
+		} while (true);
+
+	}
+
+	public void siirtyminen(Palvelupiste[] pistelista, String nimi) {
+		int kierretty = 0;
+		int range;
+		int montaBaaria;
+
+		Asiakas a = null;
+		// a.setKaydytPaikat(piste.getBaarinnimi());
+		for (Palvelupiste p : pistelista) {
+			if (p.getBaarinnimi().equals(nimi)) {
+				a = p.otaSis‰lt‰();
+				break;
+			}
+		}
+		montaBaaria = getPalvelupisteidenMaara();
+		boolean onkoKayty;
+
+		if (a.getSuorituspassi() == suoritukset) { // Siirsin suorituspassi tarkistuksen t‰nne.
+			pistelista[0].lisaaJonoon(a); // Oli ennen palvelupisteess‰ itsess‰‰n. -otto
+
+		} else {
+
+			do {
+				range = (int) Math.ceil(Math.random() * getPalvelupisteidenMaara());
+				onkoKayty = a.onkoBaarissaKayty(pistelista[range].getBaarinnimi());
+
+				if (!onkoKayty && a.getTyytyvaisyysIndeksi() >= pistelista[range].getMontaJonossa()
+						|| kierretty >= montaBaaria && !onkoKayty) {
+					pistelista[range].lisaaJonoon(a);
+					break;
+				}
+
+				kierretty++;
+
+			} while (true);
+		}
+	}
+	
+	public void ulos(Palvelupiste p[]) {
+		Asiakas a = p[0].otaSis‰lt‰(); // poistaa t‰ll‰ hetkell‰ vain asiakkaat j‰rjestelm‰st‰ lopullisesti
+		setAvgtyytyvaisyys(a.getTyytyvaisyysIndeksi());
+
+		System.err.println(a.getId() + ":n tyytyv‰isyys oli: " + a.getTyytyvaisyysIndeksi());
+		System.err.println("Keskim‰‰r‰inen jonotusaika " + a.getKeskimaarainenJonotusaika());
 	}
 
 }

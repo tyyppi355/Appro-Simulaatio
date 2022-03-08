@@ -44,24 +44,24 @@ public class Palvelupiste {
 	private String baarinnimi;
 	@Transient
 	private int montaKertaaKayty = 0;
-<<<<<<< Updated upstream
 	@Column(name ="lat")
 	private double lat;
 	@Column(name ="lon")
 	private double lon;
-=======
+	@Transient
 	private int koko;
->>>>>>> Stashed changes
 
 	// JonoStartegia strategia; //optio: asiakkaiden järjestys
 
 	public Palvelupiste(ContinuousGenerator generator, Tapahtumalista tapahtumalista, TapahtumanTyyppi tyyppi,
-			String n, int koko) {
+			String n, int koko, double lat, double lon) {
 		this.tapahtumalista = tapahtumalista;
 		this.generator = generator;
 		this.skeduloitavanTapahtumanTyyppi = tyyppi;
 		this.baarinnimi = n;
 		this.koko = koko;
+		this.lat = lat;
+		this.lon = lon;
 
 	}
 	public Palvelupiste(String nimi,double lat,double lon) {
@@ -69,6 +69,9 @@ public class Palvelupiste {
 		this.baarinnimi = nimi;
 		this.lat = lat;
 		this.lon = lon;
+	}
+	public Palvelupiste() {
+		super();
 	}
 
 	public void lisaaJonoon(Asiakas a) { // Jonon 1. asiakas aina palvelussa

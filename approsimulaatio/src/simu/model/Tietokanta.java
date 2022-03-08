@@ -71,7 +71,7 @@ private SessionFactory istuntotehdas;
 		// TODO Auto-generated method stub
 		Session istunto = istuntotehdas.openSession();
 		istunto.beginTransaction();
-		List result = istunto.createQuery( "from Palvelupistelista" ).list();
+		List result = istunto.createQuery( "from Palvelupiste" ).list();
 		istunto.getTransaction().commit();
 		istunto.close();
 		return result;

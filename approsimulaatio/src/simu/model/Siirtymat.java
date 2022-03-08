@@ -1,6 +1,5 @@
 package simu.model;
 
-import eduni.distributions.Distributions;
 import eduni.distributions.Normal;
 
 public class Siirtymat {
