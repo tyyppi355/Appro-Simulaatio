@@ -1,5 +1,7 @@
 package simu.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,8 +24,9 @@ public class OmaMoottori extends Moottori {
 	private int palvelupisteidenMaara;
 
 	private double avgtyytyvaisyys = 0;
-	private int suoritukset = 3;
-	private HashMap<String,Matka> matkalista = new HashMap<String,Matka>();
+	private int suoritukset = 4;
+	private HashMap<String, Matka> matkalista = new HashMap<String, Matka>();
+	private ArrayList<Integer> matkaaikalista = new ArrayList<Integer>();
 
 	public int getPoistuneet() {
 		return poistuneet;
@@ -44,9 +47,10 @@ public class OmaMoottori extends Moottori {
 		Tietokanta tietokanta = new Tietokanta();
 
 		List<Palvelupiste> lista = tietokanta.readValuutat();
-		
+
 		List<Matka> list = tietokanta.readMatkat();
-		for(int i = 0;i < list.size();i++) {
+
+		for (int i = 0; i < list.size(); i++) {
 			matkalista.put(list.get(i).getNimi(), list.get(i));
 		}
 		palvelupisteidenMaara = lista.size();
@@ -61,28 +65,29 @@ public class OmaMoottori extends Moottori {
 			palvelupisteet[i] = new Palvelupiste(new Normal(100, 50), tapahtumalista, TapahtumanTyyppi.Palvelupiste,
 					lista.get(i - 1).getBaarinnimi(), 50, lista.get(i - 1).getLat(), lista.get(i - 1).getLon());
 
-		}
-		/*for (int i = 1; i <= lista.size(); i++) {
-
-			Palvelupiste p = palvelupisteet[i];
-
-			for (int i2 = 1; i2 <= lista.size(); i2++) {
-
-				Palvelupiste p2 = palvelupisteet[i2];
-				
-				if(!p.getBaarinnimi().equals(p2.getBaarinnimi())) {
-					String a = p.getBaarinnimi() + "to" + p2.getBaarinnimi();
-
-					Matka m = Reittiopas.getDistance(a, p.getLat(), p.getLon(),
-							p2.getLat(), p2.getLon());
-					
-					tietokanta.createMatka(m);
-					
-				}
-
-			}
-
-		}*/
+		} /*
+			 * for (int i = 1; i <= lista.size(); i++) {
+			 * 
+			 * Palvelupiste p = palvelupisteet[i];
+			 * 
+			 * for (int i2 = 1; i2 <= lista.size(); i2++) {
+			 * 
+			 * Palvelupiste p2 = palvelupisteet[i2];
+			 * 
+			 * if(!p.getBaarinnimi().equals(p2.getBaarinnimi())) { String a =
+			 * p.getBaarinnimi() + "to" + p2.getBaarinnimi();
+			 * 
+			 * Matka m = Reittiopas.getDistance(a, p.getLat(), p.getLon(), p2.getLat(),
+			 * p2.getLon());
+			 * 
+			 * tietokanta.createMatka(m);
+			 * 
+			 * }
+			 * 
+			 * }
+			 * 
+			 * }
+			 */
 		saapumisprosessi = new Saapumisprosessi(new Negexp(2, 5), tapahtumalista, TapahtumanTyyppi.ARR1);
 
 	}
@@ -140,6 +145,10 @@ public class OmaMoottori extends Moottori {
 		}
 		avgtyytyvaisyys = avgtyytyvaisyys / montaOpiskelijaa;
 		System.err.println("Average tyytyvaisyys " + avgtyytyvaisyys);
+		System.out.println();
+		Collections.sort(matkaaikalista);
+		System.out.println("Nopeimman asiakkaan matka aika: " + matkaaikalista.get(0));
+		System.out.println("Hitaimman asiakkaan matka aika: " + matkaaikalista.get(matkaaikalista.size() - 1));
 
 		System.out.println("Simulaatio loppui");
 		kontrolleri.naytaLoppuaika(Kello.getInstance().getAika());
@@ -221,6 +230,8 @@ public class OmaMoottori extends Moottori {
 
 	public void ulos(Palvelupiste p[]) {
 		Asiakas a = p[0].otaSisältä(); // poistaa tällä hetkellä vain asiakkaat järjestelmästä lopullisesti
+		matkaaikalista.add(a.getMatkaaika());
+
 		setAvgtyytyvaisyys(a.getTyytyvaisyysIndeksi());
 		System.err.println(a.getId() + ":n tyytyväisyys oli: " + a.getTyytyvaisyysIndeksi());
 		System.err.println(a.getMatkaaika() + " Matkanaika!!!!!!!!!");
