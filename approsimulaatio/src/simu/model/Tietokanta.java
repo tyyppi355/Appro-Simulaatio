@@ -53,18 +53,27 @@ private SessionFactory istuntotehdas;
 			throw e;
 		}
 	}
-	public Baari readValuutta(String tunnus) {
+	public Matka readMatka(String tunnus) {
 		// TODO Auto-generated method stub
 		Session istunto = istuntotehdas.openSession();
 		istunto = istuntotehdas.openSession();
 		istunto.beginTransaction();
 
-		Baari val = new Baari();
+		Matka val = new Matka();
 		istunto.load(val, tunnus);
 
 		istunto.getTransaction().commit();
 		istunto.close();
 		return val;
+	}
+	public List<Matka> readMatkat() {
+		// TODO Auto-generated method stub
+		Session istunto = istuntotehdas.openSession();
+		istunto.beginTransaction();
+		List result = istunto.createQuery( "from Matka" ).list();
+		istunto.getTransaction().commit();
+		istunto.close();
+		return result;
 	}
 
 	public List<Palvelupiste> readValuutat() {

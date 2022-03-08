@@ -20,6 +20,7 @@ public class Asiakas {
 	private long sum = 0;
 	private double tyytyvaisyysIndeksi = 1000;
 	private int jonoIndeksi;
+	private int matkaaika = 0;
 
 	
 	private ContinuousGenerator Generaattori;
@@ -128,6 +129,17 @@ public class Asiakas {
 	public void setSuorituspassi() {
 		suorituspassi++;
 	}
+
+
+	public int getMatkaaika() {
+		return matkaaika;
+	}
+
+
+	public void setMatkaaika(int matkaaika) {
+		this.matkaaika += matkaaika;
+	}
+	
 	
 	
 
