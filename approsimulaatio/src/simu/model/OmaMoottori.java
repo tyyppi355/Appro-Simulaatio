@@ -15,8 +15,11 @@ public class OmaMoottori extends Moottori {
 	private int poistuneet = 1;
 	private int luodut = 0;
 
-	private int montaOpiskelijaa = 1000;// uusi otto
-	private int palvelupisteidenMaara = 7;
+	private int montaOpiskelijaa = 500;
+	private int palvelupisteidenMaara = 3;
+	
+	private double avgtyytyvaisyys = 0;
+	private int tyytyvaisyysCount = 0;
 
 	public int getPoistuneet() {
 		return poistuneet;
@@ -34,22 +37,32 @@ public class OmaMoottori extends Moottori {
 
 		super(kontrolleri);
 
-		palvelupisteet = new Palvelupiste[palvelupisteidenMaara];
-
-		palvelupisteet[1] = new Palvelupiste(new Normal(25, 10), tapahtumalista, TapahtumanTyyppi.Palvelupiste,
-				"Dondo");
+		palvelupisteet = new Palvelupiste[palvelupisteidenMaara + 1];/*
+for(int i = 1; i<palvelupisteidenMaara;i++) {
+	palvelupisteet[i] = new Palvelupiste(new Normal(100, 50), tapahtumalista, TapahtumanTyyppi.Palvelupiste,"Dondo"+i);
+}*/
+		
+		palvelupisteet[1] = new Palvelupiste(new Normal(100, 50), tapahtumalista, TapahtumanTyyppi.Palvelupiste,
+				"Apollo",50);
 		palvelupisteet[2] = new Palvelupiste(new Normal(100, 50), tapahtumalista, TapahtumanTyyppi.Palvelupiste,
-				"Apollo");
+				"Kannunkulma",50);
 		palvelupisteet[3] = new Palvelupiste(new Normal(100, 50), tapahtumalista, TapahtumanTyyppi.Palvelupiste,
-				"Kannunkulma");
+				"Karhunkansi",50);
+		/*	
 		palvelupisteet[4] = new Palvelupiste(new Normal(100, 50), tapahtumalista, TapahtumanTyyppi.Palvelupiste,
-				"Karhun Kansi");
+				"Cortisooni baari",50);
 		palvelupisteet[5] = new Palvelupiste(new Normal(100, 50), tapahtumalista, TapahtumanTyyppi.Palvelupiste,
+<<<<<<< Updated upstream
 				"Cortisooni baari");
 		palvelupisteet[6] = new Palvelupiste(new Normal(100, 50), tapahtumalista, TapahtumanTyyppi.Palvelupiste,
 				"Kaivo huone");
+=======
+				"Kaivo huone",100);*/
+		
+
+>>>>>>> Stashed changes
 		palvelupisteet[0] = new Palvelupiste(new Normal(1, 1), tapahtumalista, TapahtumanTyyppi.OUT,
-				"***JATKOPAIKKA***"); // jatkopaikan "palvelupiste"
+				"***JATKOPAIKKA***",montaOpiskelijaa); // jatkopaikan "palvelupiste"
 
 		saapumisprosessi = new Saapumisprosessi(new Negexp(2, 5), tapahtumalista, TapahtumanTyyppi.ARR1);
 
@@ -86,18 +99,15 @@ public class OmaMoottori extends Moottori {
 		case OUT:
 			h.ulos(palvelupisteet);
 			poistuneet++;
-			System.out.println("Nyt on asiakas poistunut systeemist‰! " + poistuneet);
-			System.out.println();
-
-			for (Palvelupiste p : palvelupisteet) {
-				System.out.println(p.getBaarinnimi() + "ssa on k‰yty " + p.getMontaKertaaKayty());
-
-			}
 			break;
 
 		}
 	}
-
+	
+	public void setAvgtyytyvaisyys(double tyytyvaisyys) {
+		avgtyytyvaisyys += tyytyvaisyys;
+	}
+	
 	@Override
 	protected void tulokset() {
 		System.out.println("Simulointi p‰‰ttyi kello " + Kello.getInstance().getAika());
@@ -110,7 +120,10 @@ public class OmaMoottori extends Moottori {
 			System.out.println("Jono: " + p.getMontaJonossa() + " Sis‰ll‰: " + p.getMontaSisalla());
 
 		}
+		avgtyytyvaisyys= avgtyytyvaisyys / montaOpiskelijaa;
+		System.err.println("Average tyytyvaisyys "+ avgtyytyvaisyys);
 
+		System.out.println("Simulaatio loppui");
 		kontrolleri.naytaLoppuaika(Kello.getInstance().getAika());
 
 	}

@@ -44,19 +44,24 @@ public class Palvelupiste {
 	private String baarinnimi;
 	@Transient
 	private int montaKertaaKayty = 0;
+<<<<<<< Updated upstream
 	@Column(name ="lat")
 	private double lat;
 	@Column(name ="lon")
 	private double lon;
+=======
+	private int koko;
+>>>>>>> Stashed changes
 
 	// JonoStartegia strategia; //optio: asiakkaiden järjestys
 
 	public Palvelupiste(ContinuousGenerator generator, Tapahtumalista tapahtumalista, TapahtumanTyyppi tyyppi,
-			String n) {
+			String n, int koko) {
 		this.tapahtumalista = tapahtumalista;
 		this.generator = generator;
 		this.skeduloitavanTapahtumanTyyppi = tyyppi;
-		baarinnimi = n;
+		this.baarinnimi = n;
+		this.koko = koko;
 
 	}
 	public Palvelupiste(String nimi,double lat,double lon) {
@@ -68,11 +73,10 @@ public class Palvelupiste {
 
 	public void lisaaJonoon(Asiakas a) { // Jonon 1. asiakas aina palvelussa
 
-		System.out.println();
-
+		System.out.println("");
 		System.out.println(baarinnimi + " jono: " + jono.size());
 		System.out.println(baarinnimi + ": " + sisalla.size());
-		System.out.println();
+		System.out.println("");
 
 		jono.add(a);
 		a.setSaapumisaika(Kello.getInstance().getAika());
@@ -127,7 +131,7 @@ public class Palvelupiste {
 
 	public boolean onVarattu() {
 
-		if (sisalla.size() == 50) {
+		if (sisalla.size() == koko) {
 			return true;
 		} else {
 			return false;

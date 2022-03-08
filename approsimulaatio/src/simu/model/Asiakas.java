@@ -23,7 +23,6 @@ public class Asiakas {
 
 	
 	private ContinuousGenerator Generaattori;
-	private int odotusindeksi;
 	private HashMap<String,Double> jonoaikalista = new HashMap<String,Double>();
 	
 	private int suorituspassi = 0;
@@ -32,15 +31,12 @@ public class Asiakas {
 	
 	public Asiakas(ContinuousGenerator generator){
 	    id = i++;
-	    odotusindeksi = (int) Math.round(generator.sample());
+	    jonoIndeksi = (int) Math.round(generator.sample());
 		saapumisaika = Kello.getInstance().getAika();
 		Trace.out(Trace.Level.INFO, "Uusi asiakas nro " + id + " saapui klo "+saapumisaika);
 	}
-
-	public int getOdotusindeksi(){
-		return odotusindeksi;
-	}
 	
+
 	public double getTyytyvaisyysIndeksi() {
 		return this.tyytyvaisyysIndeksi;
 	}
@@ -61,6 +57,7 @@ public class Asiakas {
 	public int getJonoIndeksi() {
 		return jonoIndeksi;
 	}
+
 
 	public void setPoistumisaika(double poistumisaika) {
 		this.poistumisaika = poistumisaika;
@@ -85,20 +82,22 @@ public class Asiakas {
 	
 	public double getKeskimaarainenJonotusaika() {
 		double tulos = 0;
-		for(var entry : jonoaikalista.entrySet()) {
-			tulos += entry.getValue();
+		for(Double value : jonoaikalista.values()) {
+			tulos += value;
 		}
 		return tulos;
 	}
 	
 	// Tarkista onko asiakas k‰ynyt annetussa baarissa. K‰ytet‰‰n siirtym‰ luokassa.
 	public boolean onkoBaarissaKayty(String baari) {
-		for(var entry : jonoaikalista.entrySet()) {
-			if(entry.getKey().equals(baari)) {
-				return true;
-			}
+		if(jonoaikalista.containsKey(baari)) {
+			return true;
 		}
 		return false;
+	}
+	
+	public int baarissaKaytyListaPituus() {
+		return jonoaikalista.size();
 	}
 
 	public void setJonoaikalista(String nimi) {
