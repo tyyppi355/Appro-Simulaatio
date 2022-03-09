@@ -20,7 +20,7 @@
       <Button fx:id="Plus" layoutX="841.0" layoutY="89.0" mnemonicParsing="false" onAction="#lisaamaara" prefHeight="65.0" prefWidth="151.0" text="Lisää" />
       <Button fx:id="Minus" layoutX="841.0" layoutY="163.0" mnemonicParsing="false" onAction="#poista" prefHeight="65.0" prefWidth="151.0" text="Poista" />
       <Label fx:id="numero" alignment="CENTER" layoutX="841.0" layoutY="243.0" prefHeight="65.0" prefWidth="151.0" style="-fx-background-color: Grey;" text="1" />
-      <Label layoutX="841.0" layoutY="315.0" prefHeight="65.0" prefWidth="151.0" text="Paskaa" />
+      <Label layoutX="841.0" layoutY="315.0" prefHeight="65.0" prefWidth="151.0" text="Tyytyväisyys AVG" />
       <HBox fx:id="poksi1" layoutX="-39.0" layoutY="312.0" prefHeight="71.0" prefWidth="135.0">
          <children>
             <ImageView fx:id="g1h1" fitHeight="75.0" fitWidth="71.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">

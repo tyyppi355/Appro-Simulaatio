@@ -27,7 +27,6 @@ public class Kontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV{   // UUS
 		moottori = new OmaMoottori(this); // luodaan uusi moottorisäie jokaista simulointia varten
 		moottori.setSimulointiaika(ui.getAika());
 		moottori.setViive(ui.getViive());
-		ui.getVisualisointi().tyhjennaNaytto();
 		((Thread)moottori).start();
 		//((Thread)moottori).run(); // Ei missään tapauksessa näin. Miksi?
 	}
@@ -56,7 +55,7 @@ public class Kontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV{   // UUS
 	@Override
 	public void updateUI() {
 		ArrayList<Palvelupiste> Palvelu = moottori.getPalvelupisteet();
-		ArrayList<Integer> pituudet = null;
+		ArrayList<Integer> pituudet = new ArrayList<Integer>();
 		for(int i = 0; i < 5; i++) {
 			pituudet.add(Palvelu.get(i).getMontaJonossa());
 		}

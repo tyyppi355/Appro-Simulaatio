@@ -1,5 +1,7 @@
 package simu.framework;
 
+import java.util.ArrayList;
+
 import controller.IKontrolleriMtoV;
 import simu.model.Palvelupiste;
 
@@ -13,6 +15,8 @@ public abstract class Moottori extends Thread implements IMoottori{
 	protected Palvelupiste[] palvelupisteet;
 	
 	protected IKontrolleriMtoV kontrolleri;
+	
+	private boolean jonotehty;
 	
 	public Moottori(IKontrolleriMtoV kontrolleri){
 
@@ -43,6 +47,9 @@ public abstract class Moottori extends Thread implements IMoottori{
 			kello.setAika(nykyaika());
 			suoritaBTapahtumat();
 			yritaCTapahtumat();
+				if(!getPalvelupisteet().isEmpty()) {
+					kontrolleri.updateUI();
+			}
 		}
 		tulokset();
 		
@@ -75,7 +82,7 @@ public abstract class Moottori extends Thread implements IMoottori{
 	private void viive() { // UUSI
 		Trace.out(Trace.Level.INFO, "Viive " + viive);
 		try {
-			sleep(viive);
+			sleep(5);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

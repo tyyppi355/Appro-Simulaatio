@@ -2,6 +2,7 @@ package view;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import controller.IKontrolleriVtoM;
 import controller.Kontrolleri;
@@ -49,6 +50,8 @@ public class AnimaatioOhjain extends Application implements ISimulaattorinUI {
 
 	@FXML
 	private Label numero;
+	
+	HashMap<String,ImageView> kuvat;
 
 	// kuvat itsessään
 	Image myImageALK = new Image(getClass().getResourceAsStream("katu.png"));
@@ -123,54 +126,252 @@ public class AnimaatioOhjain extends Application implements ISimulaattorinUI {
 
 	public void nakyvyys(ArrayList<Integer> L) {
 
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i <= 4; i++) {
 			
 			if (L.get(i) == 0) {
-				g1h1.setOpacity(0);
-				g1h2.setOpacity(0);
-				g1h3.setOpacity(0);
-				g1h4.setOpacity(0);
-				g1h5.setOpacity(0);
+				switch(i) {
+				case 1:
+					g1h1.setOpacity(0);
+					g1h2.setOpacity(0);
+					g1h3.setOpacity(0);
+					g1h4.setOpacity(0);
+					g1h5.setOpacity(0);
+					break;
+				case 2:
+					g2h1.setOpacity(0);
+					g2h2.setOpacity(0);
+					g2h3.setOpacity(0);
+					g2h4.setOpacity(0);
+					g2h5.setOpacity(0);
+					break;
+				case 3:
+					g3h1.setOpacity(0);
+					g3h2.setOpacity(0);
+					g3h3.setOpacity(0);
+					g3h4.setOpacity(0);
+					g3h5.setOpacity(0);
+					break;
+				case 4:
+					g4h1.setOpacity(0);
+					g4h2.setOpacity(0);
+					g4h3.setOpacity(0);
+					g4h4.setOpacity(0);
+					g4h5.setOpacity(0);
+					break;
+				case 5:
+					g5h1.setOpacity(0);
+					g5h2.setOpacity(0);
+					g5h3.setOpacity(0);
+					g5h4.setOpacity(0);
+					g5h5.setOpacity(0);
+					break;
+
+				}
 			}
 			
 			if (L.get(i) < 20) {
-				g1h1.setOpacity(1);
-				g1h2.setOpacity(0);
-				g1h3.setOpacity(0);
-				g1h4.setOpacity(0);
-				g1h5.setOpacity(0);
+				switch(i) {
+				case 1:
+					g1h1.setOpacity(0);
+					g1h2.setOpacity(0);
+					g1h3.setOpacity(0);
+					g1h4.setOpacity(0);
+					g1h5.setOpacity(1);
+					break;
+				case 2:
+					g2h1.setOpacity(0);
+					g2h2.setOpacity(0);
+					g2h3.setOpacity(0);
+					g2h4.setOpacity(0);
+					g2h5.setOpacity(1);
+					break;
+				case 3:
+					g3h1.setOpacity(0);
+					g3h2.setOpacity(0);
+					g3h3.setOpacity(0);
+					g3h4.setOpacity(0);
+					g3h5.setOpacity(1);
+					break;
+				case 4:
+					g4h1.setOpacity(0);
+					g4h2.setOpacity(0);
+					g4h3.setOpacity(0);
+					g4h4.setOpacity(0);
+					g4h5.setOpacity(1);
+					break;
+				case 5:
+					g5h1.setOpacity(0);
+					g5h2.setOpacity(0);
+					g5h3.setOpacity(0);
+					g5h4.setOpacity(0);
+					g5h5.setOpacity(1);
+					break;
+
+				}
 			}
 
 			if (L.get(i) < 40 && L.get(i) > 20) {
-				g1h1.setOpacity(1);
-				g1h2.setOpacity(1);
-				g1h3.setOpacity(0);
-				g1h4.setOpacity(0);
-				g1h5.setOpacity(0);
+				switch(i) {
+				case 1:
+					g1h1.setOpacity(0);
+					g1h2.setOpacity(0);
+					g1h3.setOpacity(0);
+					g1h4.setOpacity(1);
+					g1h5.setOpacity(1);
+					break;
+				case 2:
+					g2h1.setOpacity(0);
+					g2h2.setOpacity(0);
+					g2h3.setOpacity(0);
+					g2h4.setOpacity(1);
+					g2h5.setOpacity(1);
+					break;
+				case 3:
+					g3h1.setOpacity(0);
+					g3h2.setOpacity(0);
+					g3h3.setOpacity(0);
+					g3h4.setOpacity(1);
+					g3h5.setOpacity(1);
+					break;
+				case 4:
+					g4h1.setOpacity(0);
+					g4h2.setOpacity(0);
+					g4h3.setOpacity(0);
+					g4h4.setOpacity(1);
+					g4h5.setOpacity(1);
+					break;
+				case 5:
+					g5h1.setOpacity(0);
+					g5h2.setOpacity(0);
+					g5h3.setOpacity(0);
+					g5h4.setOpacity(1);
+					g5h5.setOpacity(1);
+					break;
+
+				}
 			}
 
 			if (L.get(i) < 60 && L.get(i) > 40) {
-				g1h1.setOpacity(1);
-				g1h2.setOpacity(1);
-				g1h3.setOpacity(1);
-				g1h4.setOpacity(0);
-				g1h5.setOpacity(0);
+				switch(i) {
+				case 1:
+					g1h1.setOpacity(0);
+					g1h2.setOpacity(0);
+					g1h3.setOpacity(1);
+					g1h4.setOpacity(1);
+					g1h5.setOpacity(1);
+					break;
+				case 2:
+					g2h1.setOpacity(0);
+					g2h2.setOpacity(0);
+					g2h3.setOpacity(1);
+					g2h4.setOpacity(1);
+					g2h5.setOpacity(1);
+					break;
+				case 3:
+					g3h1.setOpacity(0);
+					g3h2.setOpacity(0);
+					g3h3.setOpacity(1);
+					g3h4.setOpacity(1);
+					g3h5.setOpacity(1);
+					break;
+				case 4:
+					g4h1.setOpacity(0);
+					g4h2.setOpacity(0);
+					g4h3.setOpacity(1);
+					g4h4.setOpacity(1);
+					g4h5.setOpacity(1);
+					break;
+				case 5:
+					g5h1.setOpacity(0);
+					g5h2.setOpacity(0);
+					g5h3.setOpacity(1);
+					g5h4.setOpacity(1);
+					g5h5.setOpacity(1);
+					break;
+
+				}
 			}
 
 			if (L.get(i) < 80 && L.get(i) > 60) {
-				g1h1.setOpacity(1);
-				g1h2.setOpacity(1);
-				g1h3.setOpacity(1);
-				g1h4.setOpacity(1);
-				g1h5.setOpacity(0);
+				switch(i) {
+				case 1:
+					g1h1.setOpacity(0);
+					g1h2.setOpacity(1);
+					g1h3.setOpacity(1);
+					g1h4.setOpacity(1);
+					g1h5.setOpacity(1);
+					break;
+				case 2:
+					g2h1.setOpacity(0);
+					g2h2.setOpacity(1);
+					g2h3.setOpacity(1);
+					g2h4.setOpacity(1);
+					g2h5.setOpacity(1);
+					break;
+				case 3:
+					g3h1.setOpacity(0);
+					g3h2.setOpacity(1);
+					g3h3.setOpacity(1);
+					g3h4.setOpacity(1);
+					g3h5.setOpacity(1);
+					break;
+				case 4:
+					g4h1.setOpacity(0);
+					g4h2.setOpacity(1);
+					g4h3.setOpacity(1);
+					g4h4.setOpacity(1);
+					g4h5.setOpacity(1);
+					break;
+				case 5:
+					g5h1.setOpacity(0);
+					g5h2.setOpacity(1);
+					g5h3.setOpacity(1);
+					g5h4.setOpacity(1);
+					g5h5.setOpacity(1);
+					break;
+
+				}
 			}
 			
 			if (L.get(i) >= 80 ) {
-				g1h1.setOpacity(1);
-				g1h2.setOpacity(1);
-				g1h3.setOpacity(1);
-				g1h4.setOpacity(1);
-				g1h5.setOpacity(1);
+				switch(i) {
+				case 1:
+					g1h1.setOpacity(1);
+					g1h2.setOpacity(1);
+					g1h3.setOpacity(1);
+					g1h4.setOpacity(1);
+					g1h5.setOpacity(1);
+					break;
+				case 2:
+					g2h1.setOpacity(1);
+					g2h2.setOpacity(1);
+					g2h3.setOpacity(1);
+					g2h4.setOpacity(1);
+					g2h5.setOpacity(1);
+					break;
+				case 3:
+					g3h1.setOpacity(1);
+					g3h2.setOpacity(1);
+					g3h3.setOpacity(1);
+					g3h4.setOpacity(1);
+					g3h5.setOpacity(1);
+					break;
+				case 4:
+					g4h1.setOpacity(1);
+					g4h2.setOpacity(1);
+					g4h3.setOpacity(1);
+					g4h4.setOpacity(1);
+					g4h5.setOpacity(1);
+					break;
+				case 5:
+					g5h1.setOpacity(1);
+					g5h2.setOpacity(1);
+					g5h3.setOpacity(1);
+					g5h4.setOpacity(1);
+					g5h5.setOpacity(1);
+					break;
+
+				}
 			}
 
 		}

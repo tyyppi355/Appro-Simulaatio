@@ -99,8 +99,7 @@ public class OmaMoottori extends Moottori {
 		
 	
 	
-	
-	public ArrayList getPalvelupisteet() {
+	public ArrayList<Palvelupiste> getPalvelupisteet() {
         ArrayList<Palvelupiste> lista = new ArrayList<Palvelupiste>();
 
         for (Palvelupiste p : palvelupisteet) {
@@ -145,14 +144,14 @@ public class OmaMoottori extends Moottori {
 
 	@Override
 	protected void tulokset() {
-		System.out.println("Simulointi p��ttyi kello " + Kello.getInstance().getAika());
+		System.out.println("Simulointi paattyi kello " + Kello.getInstance().getAika());
 		System.out.println("Luodut opsikelijat: " + luodut);
-		System.out.println("Poistuneiden m��r�: " + poistuneet);
+		System.out.println("Poistuneiden maara: " + poistuneet);
 		System.out.println();
 
 		for (Palvelupiste p : palvelupisteet) {
-			System.out.println(p.getBaarinnimi() + "ssa on k�yty " + p.getMontaKertaaKayty());
-			System.out.println("Jono: " + p.getMontaJonossa() + " Sis�ll�: " + p.getMontaSisalla());
+			System.out.println(p.getBaarinnimi() + "ssa on kayty " + p.getMontaKertaaKayty());
+			System.out.println("Jono: " + p.getMontaJonossa() + " Sisalla: " + p.getMontaSisalla());
 
 		}
 		avgtyytyvaisyys = avgtyytyvaisyys / montaOpiskelijaa;
