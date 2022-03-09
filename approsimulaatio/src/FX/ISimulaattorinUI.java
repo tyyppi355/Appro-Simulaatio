@@ -1,6 +1,4 @@
-package view;
-
-import java.util.ArrayList;
+package FX;
 
 public interface ISimulaattorinUI {
 	
@@ -13,6 +11,5 @@ public interface ISimulaattorinUI {
 	
 	// Kontrolleri tarvitsee  
 	public IVisualisointi getVisualisointi();
-	
-	public void nakyvyys(ArrayList<Integer> L);
+
 }

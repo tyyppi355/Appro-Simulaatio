@@ -122,7 +122,7 @@ public class Palvelupiste {
 		return this.jono.size();
 	}
 
-	public Asiakas otaSis‰lt‰() { // Poistetaan palvelussa ollut
+	public Asiakas otaSis√§lt√§() { // Poistetaan palvelussa ollut
 		Asiakas a = sisalla.poll();
 		a.nostaTyytyvaisyytta();
 		return a;

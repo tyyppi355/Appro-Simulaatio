@@ -48,11 +48,8 @@ public class OmaMoottori extends Moottori {
 
 		List<Palvelupiste> lista = tietokanta.readValuutat();
 
-		List<Matka> list = tietokanta.readMatkat();
-
-		for (int i = 0; i < list.size(); i++) {
-			matkalista.put(list.get(i).getNimi(), list.get(i));
-		}
+		
+		
 		palvelupisteidenMaara = lista.size();
 
 		palvelupisteet = new Palvelupiste[palvelupisteidenMaara + 1];
@@ -60,6 +57,9 @@ public class OmaMoottori extends Moottori {
 		palvelupisteet[0] = new Palvelupiste(new Normal(1, 1), tapahtumalista, TapahtumanTyyppi.OUT,
 				"***JATKOPAIKKA***", 5000, 60.169494575285455, 24.9339736292758); // jatkopaikan "palvelupiste"
 
+		
+		
+		
 		for (int i = 1; i <= lista.size(); i++) {
 
 			palvelupisteet[i] = new Palvelupiste(new Normal(100, 50), tapahtumalista, TapahtumanTyyppi.Palvelupiste,
@@ -88,15 +88,27 @@ public class OmaMoottori extends Moottori {
 			 * 
 			 * }
 			 */
+		
+		List<Matka> list = tietokanta.readMatkat();
+
+		for (int i = 0; i < list.size(); i++) {
+			matkalista.put(list.get(i).getNimi(), list.get(i));
+		}
 		saapumisprosessi = new Saapumisprosessi(new Negexp(2, 5), tapahtumalista, TapahtumanTyyppi.ARR1);
-
 	}
+		
+	
+	
+	
+	public ArrayList getPalvelupisteet() {
+        ArrayList<Palvelupiste> lista = new ArrayList<Palvelupiste>();
 
-	public Palvelupiste[] getPalvelupisteet() {
+        for (Palvelupiste p : palvelupisteet) {
+            lista.add(p);
+        }
+        return lista;
 
-		return palvelupisteet;
-
-	}
+    }
 
 	@Override
 	protected void alustukset() {
@@ -133,14 +145,14 @@ public class OmaMoottori extends Moottori {
 
 	@Override
 	protected void tulokset() {
-		System.out.println("Simulointi päättyi kello " + Kello.getInstance().getAika());
+		System.out.println("Simulointi pï¿½ï¿½ttyi kello " + Kello.getInstance().getAika());
 		System.out.println("Luodut opsikelijat: " + luodut);
-		System.out.println("Poistuneiden määrä: " + poistuneet);
+		System.out.println("Poistuneiden mï¿½ï¿½rï¿½: " + poistuneet);
 		System.out.println();
 
 		for (Palvelupiste p : palvelupisteet) {
-			System.out.println(p.getBaarinnimi() + "ssa on käyty " + p.getMontaKertaaKayty());
-			System.out.println("Jono: " + p.getMontaJonossa() + " Sisällä: " + p.getMontaSisalla());
+			System.out.println(p.getBaarinnimi() + "ssa on kï¿½yty " + p.getMontaKertaaKayty());
+			System.out.println("Jono: " + p.getMontaJonossa() + " Sisï¿½llï¿½: " + p.getMontaSisalla());
 
 		}
 		avgtyytyvaisyys = avgtyytyvaisyys / montaOpiskelijaa;
@@ -165,10 +177,10 @@ public class OmaMoottori extends Moottori {
 
 		int montaOpiskelijaa = getMontaOpiskelijaa();
 		int montaBaaria = getPalvelupisteidenMaara();
-		// TÄRKEÄ!!!!!!!!!!!!!!
-		// normaali generaattorissa MEAN on opiskelijoiden määrä jaettuna BAARIEN
-		// määrällä.
-		// VARIANCE on opiskelijoiden määrä jaettuna kaksinkertainen baarienmäärä
+		// Tï¿½RKEï¿½!!!!!!!!!!!!!!
+		// normaali generaattorissa MEAN on opiskelijoiden mï¿½ï¿½rï¿½ jaettuna BAARIEN
+		// mï¿½ï¿½rï¿½llï¿½.
+		// VARIANCE on opiskelijoiden mï¿½ï¿½rï¿½ jaettuna kaksinkertainen baarienmï¿½ï¿½rï¿½
 		//
 		Asiakas a = new Asiakas(new Normal(100, 5));
 
@@ -199,15 +211,15 @@ public class OmaMoottori extends Moottori {
 		// a.setKaydytPaikat(piste.getBaarinnimi());
 		for (Palvelupiste p : pistelista) {
 			if (p.getBaarinnimi().equals(nimi)) {
-				a = p.otaSisältä();
+				a = p.otaSisÃ¤ltÃ¤();
 				break;
 			}
 		}
 		montaBaaria = getPalvelupisteidenMaara();
 		boolean onkoKayty;
 
-		if (a.getSuorituspassi() == suoritukset) { // Siirsin suorituspassi tarkistuksen tänne.
-			pistelista[0].lisaaJonoon(a); // Oli ennen palvelupisteessä itsessään. -otto
+		if (a.getSuorituspassi() == suoritukset) { // Siirsin suorituspassi tarkistuksen tï¿½nne.
+			pistelista[0].lisaaJonoon(a); // Oli ennen palvelupisteessï¿½ itsessï¿½ï¿½n. -otto
 
 		} else {
 
@@ -229,13 +241,13 @@ public class OmaMoottori extends Moottori {
 	}
 
 	public void ulos(Palvelupiste p[]) {
-		Asiakas a = p[0].otaSisältä(); // poistaa tällä hetkellä vain asiakkaat järjestelmästä lopullisesti
+		Asiakas a = p[0].otaSisÃ¤ltÃ¤(); // poistaa tï¿½llï¿½ hetkellï¿½ vain asiakkaat jï¿½rjestelmï¿½stï¿½ lopullisesti
 		matkaaikalista.add(a.getMatkaaika());
 
 		setAvgtyytyvaisyys(a.getTyytyvaisyysIndeksi());
-		System.err.println(a.getId() + ":n tyytyväisyys oli: " + a.getTyytyvaisyysIndeksi());
+		System.err.println(a.getId() + ":n tyytyvï¿½isyys oli: " + a.getTyytyvaisyysIndeksi());
 		System.err.println(a.getMatkaaika() + " Matkanaika!!!!!!!!!");
-		System.err.println("Keskimääräinen jonotusaika " + a.getKeskimaarainenJonotusaika());
+		System.err.println("Keskimï¿½ï¿½rï¿½inen jonotusaika " + a.getKeskimaarainenJonotusaika());
 	}
 
 }

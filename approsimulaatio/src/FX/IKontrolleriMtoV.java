@@ -1,12 +1,10 @@
-package controller;
-
-import java.util.ArrayList;
+package FX;
 
 public interface IKontrolleriMtoV {
 	
 		// Rajapinta, joka tarjotaan moottorille:
 		
 		public void naytaLoppuaika(double aika);
-		public void updateUI();
+		public void visualisoiAsiakas();
 
 }

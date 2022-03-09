@@ -1,6 +1,4 @@
-package controller;
-
-import java.util.ArrayList;
+package FX;
 
 public interface IKontrolleriVtoM {
 	
@@ -9,7 +7,6 @@ public interface IKontrolleriVtoM {
 		public void kaynnistaSimulointi();
 		public void nopeuta();
 		public void hidasta();
-		
 		
 		
 }

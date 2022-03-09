@@ -1,13 +1,8 @@
-package controller;
-
-import java.util.ArrayList;
-import java.util.List;
+package FX;
 
 import javafx.application.Platform;
 import simu.framework.IMoottori;
 import simu.model.OmaMoottori;
-import simu.model.Palvelupiste;
-import simu.model.Siirtymat;
 import view.ISimulaattorinUI;
 
 public class Kontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV{   // UUSI
@@ -54,17 +49,13 @@ public class Kontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV{   // UUS
 
 	
 	@Override
-	public void updateUI() {
-		ArrayList<Palvelupiste> Palvelu = moottori.getPalvelupisteet();
-		ArrayList<Integer> pituudet = null;
-		for(int i = 0; i < 5; i++) {
-			pituudet.add(Palvelu.get(i).getMontaJonossa());
-		}
-		ui.nakyvyys(pituudet);
+	public void visualisoiAsiakas() {
+		Platform.runLater(new Runnable(){
+			public void run(){
+				ui.getVisualisointi().uusiAsiakas();
+			}
+		});
 	}
-
-
-	
 
 
 

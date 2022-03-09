@@ -10,10 +10,10 @@ public class Siirtymat {
 
 		int montaOpiskelijaa = omaMoottori.getMontaOpiskelijaa();
 		int montaBaaria = omaMoottori.getPalvelupisteidenMaara();
-		// TÄRKEÄ!!!!!!!!!!!!!!
-		// normaali generaattorissa MEAN on opiskelijoiden määrä jaettuna BAARIEN
-		// määrällä.
-		// VARIANCE on opiskelijoiden määrä jaettuna kaksinkertainen baarienmäärä
+		// Tï¿½RKEï¿½!!!!!!!!!!!!!!
+		// normaali generaattorissa MEAN on opiskelijoiden mï¿½ï¿½rï¿½ jaettuna BAARIEN
+		// mï¿½ï¿½rï¿½llï¿½.
+		// VARIANCE on opiskelijoiden mï¿½ï¿½rï¿½ jaettuna kaksinkertainen baarienmï¿½ï¿½rï¿½
 		//
 		Asiakas a = new Asiakas(new Normal(100, 5));
 
@@ -44,15 +44,15 @@ public class Siirtymat {
 		// a.setKaydytPaikat(piste.getBaarinnimi());
 		for (Palvelupiste p : pistelista) {
 			if (p.getBaarinnimi().equals(nimi)) {
-				a = p.otaSisältä();
+				a = p.otaSisÃ¤ltÃ¤();
 				break;
 			}
 		}
 		montaBaaria = omaMoottori.getPalvelupisteidenMaara();
 		boolean onkoKayty;
 
-		if (a.getSuorituspassi() == suoritukset) { // Siirsin suorituspassi tarkistuksen tänne.
-			pistelista[0].lisaaJonoon(a); // Oli ennen palvelupisteessä itsessään. -otto
+		if (a.getSuorituspassi() == suoritukset) { // Siirsin suorituspassi tarkistuksen tï¿½nne.
+			pistelista[0].lisaaJonoon(a); // Oli ennen palvelupisteessï¿½ itsessï¿½ï¿½n. -otto
 
 		} else {
 
@@ -73,11 +73,11 @@ public class Siirtymat {
 	}
 	
 	public void ulos(Palvelupiste p[]) {
-		Asiakas a = p[0].otaSisältä(); // poistaa tällä hetkellä vain asiakkaat järjestelmästä lopullisesti
+		Asiakas a = p[0].otaSisÃ¤ltÃ¤(); // poistaa tï¿½llï¿½ hetkellï¿½ vain asiakkaat jï¿½rjestelmï¿½stï¿½ lopullisesti
 		omaMoottori.setAvgtyytyvaisyys(a.getTyytyvaisyysIndeksi());
 
-		System.err.println(a.getId() + ":n tyytyväisyys oli: " + a.getTyytyvaisyysIndeksi());
-		System.err.println("Keskimääräinen jonotusaika " + a.getKeskimaarainenJonotusaika());
+		System.err.println(a.getId() + ":n tyytyvï¿½isyys oli: " + a.getTyytyvaisyysIndeksi());
+		System.err.println("Keskimï¿½ï¿½rï¿½inen jonotusaika " + a.getKeskimaarainenJonotusaika());
 	}
 
 }
