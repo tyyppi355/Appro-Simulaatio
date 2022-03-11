@@ -146,32 +146,39 @@ public class OmaMoottori extends Moottori {
 	public void setAvgtyytyvaisyys(double tyytyvaisyys) {
 		avgtyytyvaisyys += tyytyvaisyys;
 	}
+	public String tulostustoString() {
+		String tuloste;
+		
+		Collections.sort(matkaaikalista);
+		kontrolleri.naytaLoppuaika(Kello.getInstance().getAika());
+		keskimaarainenJonotus = keskimaarainenJonotus / montaOpiskelijaa;
+		avgtyytyvaisyys = avgtyytyvaisyys / montaOpiskelijaa;
+
+		tuloste = "Luodut opiskelija: " + luodut + 
+				"\nKeskim‰‰r‰inen tyytyv‰isyys: " + avgtyytyvaisyys + 
+				"\nKeskim‰‰r‰inen jonotusaika: " + keskimaarainenJonotus + 
+				"\nNopeimman asiakkan matka aika: " + matkaaikalista.get(0) + 
+				"\nHitaimman asiakkaan matka aika: " + matkaaikalista.get(matkaaikalista.size() - 1) + 
+				"\nBaarien m‰‰r‰: " + palvelupisteidenMaara + 
+				"\nOpiskelijoiden m‰‰r‰: " + montaOpiskelijaa + 
+				"\nSimulaation loppu aika: " + Kello.getInstance().getAika();
+		
+		return tuloste;
+	}
 
 	@Override
 	protected void tulokset() {
-		System.out.println("Simulointi paattyi kello " + Kello.getInstance().getAika());
-		System.out.println("Luodut opsikelijat: " + luodut);
-		System.out.println("Poistuneiden maara: " + poistuneet);
-		System.out.println();
-
+		//System.out.println("Simulointi paattyi kello " + Kello.getInstance().getAika());
+		
+		System.out.println(tulostustoString());
+/*
 		for (Palvelupiste p : palvelupisteet) {
 			System.out.println(p.getBaarinnimi() + "ssa on kayty " + p.getMontaKertaaKayty());
 			System.out.println("Jono: " + p.getMontaJonossa() + " Sisalla: " + p.getMontaSisalla());
 
 		}
-		avgtyytyvaisyys = avgtyytyvaisyys / montaOpiskelijaa;
-		System.err.println("Average tyytyvaisyys " + avgtyytyvaisyys);
-		System.out.println();
-		keskimaarainenJonotus = keskimaarainenJonotus / montaOpiskelijaa;
-		System.out.println("Keksimaarainen jonotusaika " + keskimaarainenJonotus);
-		System.out.println();
-
-		Collections.sort(matkaaikalista);
-		System.out.println("Nopeimman asiakkaan matka aika: " + matkaaikalista.get(0));
-		System.out.println("Hitaimman asiakkaan matka aika: " + matkaaikalista.get(matkaaikalista.size() - 1));
-
-		System.out.println("Simulaatio loppui");
-		kontrolleri.naytaLoppuaika(Kello.getInstance().getAika());
+		*/
+		
 
 	}
 
