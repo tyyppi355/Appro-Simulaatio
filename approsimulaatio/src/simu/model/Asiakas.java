@@ -21,6 +21,7 @@ public class Asiakas {
 	private double tyytyvaisyysIndeksi = 1000;
 	private int jonoIndeksi;
 	private int matkaaika = 0;
+	
 
 	
 	private ContinuousGenerator Generaattori;

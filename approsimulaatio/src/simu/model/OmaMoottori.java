@@ -21,7 +21,8 @@ public class OmaMoottori extends Moottori {
 	private int luodut = 0;
 
 	private int montaOpiskelijaa = 500;
-	private int palvelupisteidenMaara;
+	private int palvelupisteidenMaara = 5;
+	private double keskimaarainenJonotus = 0;
 
 	private double avgtyytyvaisyys = 0;
 	private int suoritukset = 4;
@@ -40,6 +41,17 @@ public class OmaMoottori extends Moottori {
 		return palvelupisteidenMaara;
 	}
 
+	public void lisaaPalvelupisteita() {
+		palvelupisteidenMaara += 1;
+
+	}
+
+	public void vahennaPalvelupisteita() {
+		if (palvelupisteidenMaara - 1 > 0) {
+			palvelupisteidenMaara -= 1;
+		}
+	}
+
 	public OmaMoottori(IKontrolleriMtoV kontrolleri) {
 
 		super(kontrolleri);
@@ -48,19 +60,14 @@ public class OmaMoottori extends Moottori {
 
 		List<Palvelupiste> lista = tietokanta.readPalvelupisteet();
 
-		
-		
-		palvelupisteidenMaara = lista.size();
+		//palvelupisteidenMaara = lista.size();
 
 		palvelupisteet = new Palvelupiste[palvelupisteidenMaara + 1];
 
 		palvelupisteet[0] = new Palvelupiste(new Normal(1, 1), tapahtumalista, TapahtumanTyyppi.OUT,
 				"***JATKOPAIKKA***", 5000, 60.169494575285455, 24.9339736292758); // jatkopaikan "palvelupiste"
 
-		
-		
-		
-		for (int i = 1; i <= lista.size(); i++) {
+		for (int i = 1; i <= palvelupisteidenMaara; i++) {
 
 			palvelupisteet[i] = new Palvelupiste(new Normal(100, 50), tapahtumalista, TapahtumanTyyppi.Palvelupiste,
 					lista.get(i - 1).getBaarinnimi(), 50, lista.get(i - 1).getLat(), lista.get(i - 1).getLon());
@@ -88,7 +95,7 @@ public class OmaMoottori extends Moottori {
 			 * 
 			 * }
 			 */
-		
+
 		List<Matka> list = tietokanta.readMatkat();
 
 		for (int i = 0; i < list.size(); i++) {
@@ -96,18 +103,16 @@ public class OmaMoottori extends Moottori {
 		}
 		saapumisprosessi = new Saapumisprosessi(new Negexp(2, 5), tapahtumalista, TapahtumanTyyppi.ARR1);
 	}
-		
-	
-	
+
 	public ArrayList<Palvelupiste> getPalvelupisteet() {
-        ArrayList<Palvelupiste> lista = new ArrayList<Palvelupiste>();
+		ArrayList<Palvelupiste> lista = new ArrayList<Palvelupiste>();
 
-        for (Palvelupiste p : palvelupisteet) {
-            lista.add(p);
-        }
-        return lista;
+		for (Palvelupiste p : palvelupisteet) {
+			lista.add(p);
+		}
+		return lista;
 
-    }
+	}
 
 	@Override
 	protected void alustukset() {
@@ -157,6 +162,10 @@ public class OmaMoottori extends Moottori {
 		avgtyytyvaisyys = avgtyytyvaisyys / montaOpiskelijaa;
 		System.err.println("Average tyytyvaisyys " + avgtyytyvaisyys);
 		System.out.println();
+		keskimaarainenJonotus = keskimaarainenJonotus / montaOpiskelijaa;
+		System.out.println("Keksimaarainen jonotusaika " + keskimaarainenJonotus);
+		System.out.println();
+
 		Collections.sort(matkaaikalista);
 		System.out.println("Nopeimman asiakkaan matka aika: " + matkaaikalista.get(0));
 		System.out.println("Hitaimman asiakkaan matka aika: " + matkaaikalista.get(matkaaikalista.size() - 1));
@@ -178,7 +187,8 @@ public class OmaMoottori extends Moottori {
 		// T�RKE�!!!!!!!!!!!!!!
 		// normaali generaattorissa MEAN on opiskelijoiden m��r� jaettuna BAARIEN
 		// m��r�ll�.
-		// VARIANCE on opiskelijoiden m��r� jaettuna kaksinkertainen baarienm��r�
+		// VARIANCE on opiskelijoiden m��r� jaettuna kaksinkertainen
+		// baarienm��r�
 		//
 		Asiakas a = new Asiakas(new Normal(100, 5));
 
@@ -209,7 +219,7 @@ public class OmaMoottori extends Moottori {
 		// a.setKaydytPaikat(piste.getBaarinnimi());
 		for (Palvelupiste p : pistelista) {
 			if (p.getBaarinnimi().equals(nimi)) {
-				a = p.otaSisältä();
+				a = p.otaSisalta();
 				break;
 			}
 		}
@@ -239,10 +249,12 @@ public class OmaMoottori extends Moottori {
 	}
 
 	public void ulos(Palvelupiste p[]) {
-		Asiakas a = p[0].otaSisältä(); // poistaa t�ll� hetkell� vain asiakkaat j�rjestelm�st� lopullisesti
+		Asiakas a = p[0].otaSisalta(); // poistaa t�ll� hetkell� vain asiakkaat j�rjestelm�st� lopullisesti
 		matkaaikalista.add(a.getMatkaaika());
 
 		setAvgtyytyvaisyys(a.getTyytyvaisyysIndeksi());
+		keskimaarainenJonotus += a.getKeskimaarainenJonotusaika();
+		
 		System.err.println(a.getId() + ":n tyytyv�isyys oli: " + a.getTyytyvaisyysIndeksi());
 		System.err.println(a.getMatkaaika() + " Matkanaika!!!!!!!!!");
 		System.err.println("Keskim��r�inen jonotusaika " + a.getKeskimaarainenJonotusaika());
