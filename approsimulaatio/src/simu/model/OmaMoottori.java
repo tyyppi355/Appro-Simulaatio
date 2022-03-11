@@ -46,7 +46,7 @@ public class OmaMoottori extends Moottori {
 
 		Tietokanta tietokanta = new Tietokanta();
 
-		List<Palvelupiste> lista = tietokanta.readValuutat();
+		List<Palvelupiste> lista = tietokanta.readPalvelupisteet();
 
 		
 		
@@ -174,7 +174,6 @@ public class OmaMoottori extends Moottori {
 
 	public void aloitusPaikka(Palvelupiste p[]) {
 
-		int montaOpiskelijaa = getMontaOpiskelijaa();
 		int montaBaaria = getPalvelupisteidenMaara();
 		// T�RKE�!!!!!!!!!!!!!!
 		// normaali generaattorissa MEAN on opiskelijoiden m��r� jaettuna BAARIEN

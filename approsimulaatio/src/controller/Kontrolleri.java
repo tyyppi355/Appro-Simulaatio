@@ -1,13 +1,10 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import javafx.application.Platform;
 import simu.framework.IMoottori;
 import simu.model.OmaMoottori;
 import simu.model.Palvelupiste;
-import simu.model.Siirtymat;
 import view.ISimulaattorinUI;
 
 public class Kontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV{   // UUSI
