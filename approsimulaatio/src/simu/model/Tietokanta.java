@@ -7,14 +7,15 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 /**
- * <p>DAO</p>
- * <p>Projektin data access object</p> 
+ * <p>Appro-simulaattorin DAO</p>
+ * <p>t‰ss‰ luokassa pystyt‰‰n lukemaan tietokannan tauluja objekteihin ja</p> 
+ * <p>luomaan tauluja javan objekteista</p> 
  */
 public class Tietokanta {
 
 	private SessionFactory istuntotehdas;
 	/**
-	 * Thfghgfhgf
+	 * Tietokanna konstruktori
 	 */
 	public Tietokanta() {
 
@@ -28,7 +29,8 @@ public class Tietokanta {
 
 	}
 	/**
-	 * Thfghgfhgf
+	 * <p>Metodi palvelupiste objektin lis‰‰misest‰ tietokantaan</p>
+	 * <p>createPalvelupiste(Palvelupiste p)</p>
 	 */
 	public void createPalvelupiste(Palvelupiste p) {
 		Transaction transaktio = null;
@@ -43,7 +45,8 @@ public class Tietokanta {
 		}
 	}
 	/**
-	 * Thfghgfhgf
+	 * <p>Metodi matka objektin lis‰‰misest‰ tietokantaan</p>
+	 * <p>createMatka(Matka m)</p>
 	 */
 	public void createMatka(Matka m) {
 		Transaction transaktio = null;
@@ -58,7 +61,9 @@ public class Tietokanta {
 		}
 	}
 	/**
-	 * Thfghgfhgf
+	 * <p>Metodi matka taulun lukemisesta javassa k‰ytett‰v‰‰n objektiin</p>
+	 * <p>readMatka(String tunnus)</p>
+	 * <p>parametrihin annetaan matkan nimi esim. Dondotokannunkulma</p>
 	 */
 	public Matka readMatka(String tunnus) {
 		// TODO Auto-generated method stub
@@ -74,7 +79,9 @@ public class Tietokanta {
 		return val;
 	}
 	/**
-	 * tseesus
+	 * <p>Metodi kaikkien matkojen hakeminen tietokannasta listaan</p>
+	 * <p>Listaa voidaan k‰ytt‰‰ esimerkiksi matkan pituuden hakuu myˆhemmin</p>
+	 * <p>Listan taulut koostuvat matka objekteista</p>
 	 */
 	public List<Matka> readMatkat() {
 		// TODO Auto-generated method stub
@@ -86,7 +93,9 @@ public class Tietokanta {
 		return result;
 	}
 	/**
-	 * Thfghgfhgf
+	 * <p>Metodi kaikkien palvelupisteiden hakeminen tietokannasta listaan</p>
+	 * <p>Listaa voidaan k‰yttet‰‰n simulaattorin palvelupistein‰</p>
+	 * <p>Listan taulut koostuvat palvelupiste objekteista</p>
 	 */
 	public List<Palvelupiste> readPalvelupisteet() {
 		// TODO Auto-generated method stub

@@ -9,8 +9,12 @@ import simu.framework.Kello;
 import simu.framework.Trace;
 
 
-// TODO:
-// Asiakas koodataan simulointimallin edellytt√§m√§ll√§ tavalla (data!)
+
+/**
+ * <p>Asiakas-luokka</p>
+ * <p>Maarittelee asiakkaan</p>
+ * <p>K‰ytet‰‰n asiakaan simuloinnissa</p>
+ */
 public class Asiakas {
 	
 	private double saapumisaika;
@@ -21,9 +25,6 @@ public class Asiakas {
 	private double tyytyvaisyysIndeksi = 1000;
 	private int jonoIndeksi;
 	private int matkaaika = 0;
-	
-
-	
 	private ContinuousGenerator Generaattori;
 	private HashMap<String,Double> jonoaikalista = new HashMap<String,Double>();
 	

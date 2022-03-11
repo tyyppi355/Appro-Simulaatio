@@ -14,10 +14,14 @@ import simu.framework.Tapahtuma;
 import simu.framework.Tapahtumalista;
 import simu.framework.Trace;
 
-// TODO:
 // Palvelupistekohtaiset toiminnallisuudet, laskutoimitukset (+ tarvittavat muuttujat) ja raportointi koodattava
 @Entity
 @Table(name="Palvelupiste")
+/**
+ * <p>Palvelupiste-luokka</p>
+ * <p>K‰ytet‰‰n tietokannassa(taulu) ja javassa(olio)</p>
+ * 
+ */
 public class Palvelupiste {
 	@Transient
 	private LinkedList<Asiakas> jono = new LinkedList<Asiakas>(); // Tietorakennetoteutus
@@ -63,7 +67,7 @@ public class Palvelupiste {
 	public Palvelupiste() {
 		super();
 	}
-
+	
 	public void lisaaJonoon(Asiakas a) { // Jonon 1. asiakas aina palvelussa
 
 		System.out.println("");

@@ -7,6 +7,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Matka")
+/**
+ * <p>Matka-luokka</p>
+ * <p>tämä luokka on tehty tietokannasta tulevan ja menevän data säilömiseen javassa</p>
+ */
 public class Matka {
 	@Id
 	@Column(name ="nimi")

@@ -60,14 +60,14 @@ public class OmaMoottori extends Moottori {
 
 		List<Palvelupiste> lista = tietokanta.readPalvelupisteet();
 
-		//palvelupisteidenMaara = lista.size();
+		palvelupisteidenMaara = lista.size();
 
 		palvelupisteet = new Palvelupiste[palvelupisteidenMaara + 1];
 
 		palvelupisteet[0] = new Palvelupiste(new Normal(1, 1), tapahtumalista, TapahtumanTyyppi.OUT,
 				"***JATKOPAIKKA***", 5000, 60.169494575285455, 24.9339736292758); // jatkopaikan "palvelupiste"
 
-		for (int i = 1; i <= palvelupisteidenMaara; i++) {
+		for (int i = 1; i <= lista.size(); i++) {
 
 			palvelupisteet[i] = new Palvelupiste(new Normal(100, 50), tapahtumalista, TapahtumanTyyppi.Palvelupiste,
 					lista.get(i - 1).getBaarinnimi(), 50, lista.get(i - 1).getLat(), lista.get(i - 1).getLon());
