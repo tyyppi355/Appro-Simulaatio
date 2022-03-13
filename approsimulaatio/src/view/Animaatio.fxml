@@ -7,20 +7,23 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane minHeight="527.0" minWidth="1000.0" prefHeight="527.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="view.AnimaatioOhjain">
+<AnchorPane minHeight="527.0" minWidth="1000.0" prefHeight="527.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AnimaatioOhjain">
    <children>
       <ImageView fx:id="kuvahaku" fitHeight="491.0" fitWidth="1082.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@katu.png" />
+            <Image url="@katu5.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="841.0" layoutY="14.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="151.0" text="Aloita" onAction="#handler" />
-      <Button fx:id="Plus" layoutX="841.0" layoutY="89.0" mnemonicParsing="false" onAction="#lisaamaara" prefHeight="65.0" prefWidth="151.0" text="Lisää" />
-      <Button fx:id="Minus" layoutX="841.0" layoutY="163.0" mnemonicParsing="false" onAction="#poista" prefHeight="65.0" prefWidth="151.0" text="Poista" />
+      <Button layoutX="841.0" layoutY="14.0" mnemonicParsing="false" onAction="#handler" prefHeight="65.0" prefWidth="151.0" text="Aloita" />
+      <Button fx:id="Plus" layoutX="841.0" layoutY="89.0" mnemonicParsing="false" onAction="#nopeuta" prefHeight="65.0" prefWidth="151.0" text="Lisää" />
+      <Button fx:id="Minus" layoutX="841.0" layoutY="163.0" mnemonicParsing="false" onAction="#hidasta" prefHeight="65.0" prefWidth="151.0" text="Poista" />
       <Label fx:id="numero" alignment="CENTER" layoutX="841.0" layoutY="243.0" prefHeight="65.0" prefWidth="151.0" style="-fx-background-color: Grey;" text="1" />
-      <Label layoutX="841.0" layoutY="315.0" prefHeight="65.0" prefWidth="151.0" text="Tyytyväisyys AVG" />
+      <Label fx:id="avg" alignment="CENTER" layoutX="819.0" layoutY="315.0" prefHeight="206.0" prefWidth="182.0" text="Tyytyväisyys AVG">
+         <font>
+            <Font size="9.0" />
+         </font></Label>
       <HBox fx:id="poksi1" layoutX="-39.0" layoutY="312.0" prefHeight="71.0" prefWidth="135.0">
          <children>
             <ImageView fx:id="g1h1" fitHeight="75.0" fitWidth="71.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">

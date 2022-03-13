@@ -53,12 +53,15 @@ public class Kontrolleri implements IKontrolleriVtoM, IKontrolleriMtoV{   // UUS
 	public void updateUI() {
 		ArrayList<Palvelupiste> Palvelu = moottori.getPalvelupisteet();
 		ArrayList<Integer> pituudet = new ArrayList<Integer>();
-		for(int i = 0; i < 5; i++) {
+		for(int i = 0; i < Palvelu.size(); i++) {
 			pituudet.add(Palvelu.get(i).getMontaJonossa());
 		}
 		ui.nakyvyys(pituudet);
 	}
-
+	
+	public void kEnd() {
+		ui.setEnd(moottori.tulostustoString());
+	}
 
 	
 

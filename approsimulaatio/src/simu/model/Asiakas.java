@@ -1,10 +1,7 @@
 package simu.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-
 import eduni.distributions.ContinuousGenerator;
-import eduni.distributions.Distributions;
 import simu.framework.Kello;
 import simu.framework.Trace;
 
@@ -25,7 +22,6 @@ public class Asiakas {
 	private double tyytyvaisyysIndeksi = 1000;
 	private int jonoIndeksi;
 	private int matkaaika = 0;
-	private ContinuousGenerator Generaattori;
 	private HashMap<String,Double> jonoaikalista = new HashMap<String,Double>();
 	
 	private int suorituspassi = 0;

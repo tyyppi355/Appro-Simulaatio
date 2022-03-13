@@ -13,4 +13,5 @@ public interface IMoottori { // UUSI
 	public long getViive();
 	
 	public ArrayList<Palvelupiste> getPalvelupisteet();
+	public String tulostustoString();
 }

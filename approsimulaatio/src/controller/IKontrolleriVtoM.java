@@ -1,7 +1,5 @@
 package controller;
 
-import java.util.ArrayList;
-
 public interface IKontrolleriVtoM {
 	
 		// Rajapinta, joka tarjotaan  käyttöliittymälle:
@@ -9,6 +7,7 @@ public interface IKontrolleriVtoM {
 		public void kaynnistaSimulointi();
 		public void nopeuta();
 		public void hidasta();
+		public void kEnd();
 		
 		
 		

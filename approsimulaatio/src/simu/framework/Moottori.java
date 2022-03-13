@@ -1,8 +1,7 @@
 package simu.framework;
 
-import java.util.ArrayList;
-
 import controller.IKontrolleriMtoV;
+import javafx.application.Platform;
 import simu.model.Palvelupiste;
 
 public abstract class Moottori extends Thread implements IMoottori{
@@ -16,8 +15,6 @@ public abstract class Moottori extends Thread implements IMoottori{
 	
 	protected IKontrolleriMtoV kontrolleri;
 	
-	private boolean jonotehty;
-	
 	public Moottori(IKontrolleriMtoV kontrolleri){
 
 		
@@ -26,6 +23,8 @@ public abstract class Moottori extends Thread implements IMoottori{
 		kello = Kello.getInstance(); // Otetaan kello muuttujaan yksinkertaistamaan koodia
 		
 		tapahtumalista = new Tapahtumalista();
+		
+		viive = 100;
 		
 		// Palvelupisteet luodaan simu.model-pakkauksessa Moottorin aliluokassa 
 		
@@ -42,6 +41,7 @@ public abstract class Moottori extends Thread implements IMoottori{
 	
 	public void run(){ // Entinen aja()
 		alustukset(); // luodaan mm. ensimmäinen tapahtuma
+		viive = 100;
 		while (simuloidaan()){
 			viive(); // UUSI
 			kello.setAika(nykyaika());
@@ -51,7 +51,16 @@ public abstract class Moottori extends Thread implements IMoottori{
 					kontrolleri.updateUI();
 			}
 		}
-		tulokset();
+		Platform.runLater(new Runnable() {                          
+            @Override
+            public void run() {
+                try{
+                    kontrolleri.kEnd();
+                }finally{
+                    System.out.println("yeet");
+                }
+            }
+        });
 		
 	}
 	
@@ -82,7 +91,7 @@ public abstract class Moottori extends Thread implements IMoottori{
 	private void viive() { // UUSI
 		Trace.out(Trace.Level.INFO, "Viive " + viive);
 		try {
-			sleep(5);
+			sleep(viive);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

@@ -25,7 +25,7 @@ public class OmaMoottori extends Moottori {
 	private double keskimaarainenJonotus = 0;
 
 	private double avgtyytyvaisyys = 0;
-	private int suoritukset = 4;
+	private int suoritukset = 3;
 	private HashMap<String, Matka> matkalista = new HashMap<String, Matka>();
 	private ArrayList<Integer> matkaaikalista = new ArrayList<Integer>();
 
@@ -67,7 +67,7 @@ public class OmaMoottori extends Moottori {
 		palvelupisteet[0] = new Palvelupiste(new Normal(1, 1), tapahtumalista, TapahtumanTyyppi.OUT,
 				"***JATKOPAIKKA***", 5000, 60.169494575285455, 24.9339736292758); // jatkopaikan "palvelupiste"
 
-		for (int i = 1; i <= lista.size(); i++) {
+		for (int i = 1; i <= palvelupisteidenMaara; i++) {
 
 			palvelupisteet[i] = new Palvelupiste(new Normal(100, 50), tapahtumalista, TapahtumanTyyppi.Palvelupiste,
 					lista.get(i - 1).getBaarinnimi(), 50, lista.get(i - 1).getLat(), lista.get(i - 1).getLon());
@@ -185,7 +185,7 @@ public class OmaMoottori extends Moottori {
 	@Override
 	public void setSimulointiaika(double aika) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	public void aloitusPaikka(Palvelupiste p[]) {

@@ -29,8 +29,11 @@ public class AnimaatioOhjain extends Application implements ISimulaattorinUI {
 
 	@FXML
 	ImageView kuvahaku;
+	@FXML
 	Button Aloita;
+	@FXML
 	Button Plus;
+	@FXML
 	Button Minus;
 
 	@FXML
@@ -50,6 +53,9 @@ public class AnimaatioOhjain extends Application implements ISimulaattorinUI {
 
 	@FXML
 	private Label numero;
+	
+	@FXML
+	private Label avg;
 	
 	HashMap<String,ImageView> kuvat;
 
@@ -126,7 +132,7 @@ public class AnimaatioOhjain extends Application implements ISimulaattorinUI {
 
 	public void nakyvyys(ArrayList<Integer> L) {
 
-		for (int i = 0; i <= 4; i++) {
+		for (int i = 0; i <= L.size() - 1; i++) {
 			
 			if (L.get(i) == 0) {
 				switch(i) {
@@ -426,16 +432,20 @@ public class AnimaatioOhjain extends Application implements ISimulaattorinUI {
 		// TODO Auto-generated method stub
 
 	}
-
-	@Override
-	public IVisualisointi getVisualisointi() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	public void handler() {
         Trace.setTraceLevel(Level.INFO);
         kontrolleri = new Kontrolleri(this);
         kontrolleri.kaynnistaSimulointi();
     }
+	
+	public void setEnd(String s) {
+		avg.setText(s);
+	}
+	public void nopeuta() {
+		kontrolleri.hidasta();
+	}
+	public void hidasta() {
+		kontrolleri.nopeuta();
+	}
 }
